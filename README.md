@@ -26,3 +26,21 @@ keeping things accurate.
 ## Contact
 
 For commercial use or questions: dzha.ars.va@gmail.com
+
+# Lessons list
+
+Shorthands:
+- st - story
+- pr - practice
+*There might be no shorthands somewhere if I forgot to write one or if there is nothing special about this lesson and it's just educational material.*
+
+## Primary school
+
+- Carry and borrow (st) - [click](primary/carry-borrow/plus-minus-story.html)
+- Borrow - [click](primary/carry-borrow/minus-nostory.html)
+
+## Middle school
+
+## High school
+
+- Piecewise functions (pr)
