@@ -25,4 +25,4 @@ keeping things accurate.
 
 ## Contact
 
-For commercial use or questions: dzha.ars.va@gmail.com
+Contact me: dzha.ars.va@gmail.com
