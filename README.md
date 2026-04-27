@@ -36,13 +36,13 @@ Shorthands:
 - pr - practice
 *There might be no shorthands somewhere if I forgot to write one or if there is nothing special about this lesson and it's just educational material.*
 
-## Primary school
+### Primary school
 
 - Carry and borrow (st) - [click](primary/carry-borrow/plus-minus-story.html)
 - Borrow - [click](primary/carry-borrow/minus-nostory.html)
 
-## Middle school
+### Middle school
 
-## High school
+### High school
 
 - Piecewise functions (pr)
