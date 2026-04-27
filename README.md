@@ -4,13 +4,11 @@ A collection of lessons I created for my students.
 
 ## About this repository
 
-Free to use for learning and teaching under CC BY-NC 4.0 — see
-LICENSE for details.
+Free to use for any purpose under CC BY 4.0 — see LICENSE for details.
 
 ### TL;DR
 
-- Free for non-commercial use (learning, teaching, personal study).
-- Commercial use requires permission — see Contact below.
+- Free to use, share, adapt, and even sell.
 - Credit me when you use or share the material.
 
 ## AI assistance
