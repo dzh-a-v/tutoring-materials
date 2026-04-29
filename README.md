@@ -45,6 +45,9 @@ Shorthands:
 
 ### Middle school
 
+- Data management - [click](middle/myp-1/data-management.pptx)
+- Data management (complete Unit 6 presentation) - [click](middle/myp-1/data-management-unit6-complete.html)
+
 ### High school
 
 - Piecewise functions (pr)
