@@ -1,0 +1,1560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>October 2021 S1 Past Paper - Worked Presentation</title>
+<style>
+  :root {
+    --paper: #fffdf8;
+    --ink: #273244;
+    --muted: #69778d;
+    --line: #d8e0ec;
+    --mint: #dff4ea;
+    --sky: #dfeeff;
+    --lavender: #ece7ff;
+    --peach: #ffe5d7;
+    --lemon: #fff4bf;
+    --rose: #ffdfe7;
+    --green: #66b58a;
+    --blue: #5f8edb;
+    --orange: #e8985f;
+    --pink: #d96f91;
+    --purple: #8b78ca;
+    --shadow: 0 18px 48px rgba(44, 55, 78, 0.15);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 8% 8%, rgba(223, 244, 234, 0.85), transparent 28%),
+      radial-gradient(circle at 92% 12%, rgba(255, 229, 215, 0.82), transparent 30%),
+      radial-gradient(circle at 85% 88%, rgba(236, 231, 255, 0.75), transparent 32%),
+      linear-gradient(135deg, #fbf7ef 0%, #f0f7fb 55%, #f7f1fb 100%);
+    font-family: "Segoe UI", Inter, system-ui, -apple-system, sans-serif;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(39, 50, 68, 0.12);
+    backdrop-filter: blur(12px);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    letter-spacing: 0;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  button {
+    border: 0;
+    border-radius: 6px;
+    padding: 9px 13px;
+    background: var(--blue);
+    color: white;
+    font: inherit;
+    font-weight: 750;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(95, 142, 219, 0.25);
+  }
+
+  button.secondary {
+    background: #425168;
+    box-shadow: 0 5px 15px rgba(66, 81, 104, 0.22);
+  }
+
+  .counter {
+    min-width: 92px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 14px;
+  }
+
+  main {
+    width: min(1210px, 96vw);
+    margin: 28px auto 64px;
+  }
+
+  .slide {
+    min-height: 690px;
+    margin: 0 auto 36px;
+    padding: 52px;
+    position: relative;
+    overflow: hidden;
+    scroll-margin-top: 92px;
+    background: var(--paper);
+    border: 1px solid rgba(39, 50, 68, 0.09);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+
+  .slide::after {
+    content: attr(data-number);
+    position: absolute;
+    right: 28px;
+    bottom: 22px;
+    color: #9aa7b8;
+    font-size: 14px;
+  }
+
+  .center {
+    display: grid;
+    place-content: center;
+    text-align: center;
+  }
+
+  .kicker {
+    margin: 0 0 12px;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 14px;
+    font-weight: 850;
+  }
+
+  h2 {
+    margin: 0 0 22px;
+    font-size: clamp(31px, 4.6vw, 56px);
+    line-height: 1.08;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    margin: 0 0 12px;
+    font-size: 25px;
+    line-height: 1.15;
+  }
+
+  p, li {
+    font-size: 22px;
+    line-height: 1.42;
+  }
+
+  p { margin: 0 0 15px; }
+
+  ul, ol {
+    margin: 0;
+    padding-left: 30px;
+  }
+
+  li + li { margin-top: 8px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    font-size: 20px;
+  }
+
+  th, td {
+    border: 1px solid var(--line);
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th { background: #eaf5fb; }
+
+  code, .math {
+    font-family: "Cascadia Mono", Consolas, monospace;
+    font-size: 0.95em;
+  }
+
+  .lead {
+    max-width: 930px;
+    color: #41516a;
+    font-size: 30px;
+  }
+
+  .small {
+    color: var(--muted);
+    font-size: 18px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .grid.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .panel {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+  }
+
+  .mint { background: var(--mint); }
+  .sky { background: var(--sky); }
+  .lavender { background: var(--lavender); }
+  .peach { background: var(--peach); }
+  .lemon { background: var(--lemon); }
+  .rose { background: var(--rose); }
+
+  .callout {
+    margin-top: 20px;
+    padding: 18px 22px;
+    border-left: 8px solid var(--blue);
+    border-radius: 6px;
+    background: #eef5ff;
+    font-size: 22px;
+  }
+
+  .answer {
+    border-left-color: var(--green);
+    background: #edf8f1;
+    font-weight: 750;
+  }
+
+  .warning {
+    border-left-color: var(--pink);
+    background: #fff0f4;
+  }
+
+  .formula {
+    display: block;
+    margin: 10px 0;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: #fff7d5;
+    border: 1px solid #ead991;
+    font-family: "Cascadia Mono", Consolas, monospace;
+    font-size: 21px;
+    line-height: 1.5;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #edf5fb;
+    border: 1px solid #cad9ea;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .question-card {
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: white;
+  }
+
+  .steps {
+    counter-reset: step;
+    display: grid;
+    gap: 12px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .steps li {
+    position: relative;
+    min-height: 52px;
+    padding: 12px 16px 12px 58px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: white;
+  }
+
+  .steps li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 14px;
+    top: 13px;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--lavender);
+    color: #453e74;
+    font-weight: 850;
+  }
+
+  .two-col-list {
+    columns: 2;
+    column-gap: 34px;
+  }
+
+  .chart-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .note {
+    padding: 15px 16px;
+    border-radius: 6px;
+    background: #fbf2ff;
+    border: 1px solid #ded2ea;
+    font-size: 20px;
+  }
+
+  .tight p, .tight li, .tight td, .tight th {
+    font-size: 19px;
+  }
+
+  .wide { grid-column: 1 / -1; }
+
+  @media (max-width: 840px) {
+    header { align-items: flex-start; }
+    .slide { min-height: auto; padding: 30px 22px; }
+    .grid, .grid.three { grid-template-columns: 1fr; }
+    p, li, table { font-size: 19px; }
+    .lead { font-size: 24px; }
+    .two-col-list { columns: 1; }
+  }
+
+  @media print {
+    header { display: none; }
+    body { background: white; }
+    main { width: 100%; margin: 0; }
+    .slide {
+      min-height: 100vh;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      page-break-after: always;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>October 2021 S1 Past Paper - Worked Presentation</h1>
+  <div class="controls">
+    <button type="button" onclick="go(-1)">Previous</button>
+    <span class="counter" id="counter">Slide 1 / 68</span>
+    <button type="button" onclick="go(1)">Next</button>
+    <button type="button" class="secondary" onclick="window.print()">Print / Save PDF</button>
+  </div>
+</header>
+
+<main>
+  <section class="slide center" data-number="1" aria-label="Slide 1">
+    <p class="kicker">Pearson Edexcel IAL Statistics S1</p>
+    <h2>October 2021 Past Paper</h2>
+    <p class="lead">Detailed worked explanations, definitions, strategy, and answers for all 6 questions.</p>
+  </section>
+
+  <section class="slide" data-number="2" aria-label="Slide 2">
+    <p class="kicker">How to Use This Deck</p>
+    <h2>Every Problem Has the Same Rhythm</h2>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Before solving</h3>
+        <ul>
+          <li>What are we trying to find?</li>
+          <li>Which topic and formulas are involved?</li>
+          <li>What does each mathematical term mean?</li>
+        </ul>
+      </div>
+      <div class="panel sky">
+        <h3>During solving</h3>
+        <ul>
+          <li>Set up the correct expression.</li>
+          <li>Substitute the values carefully.</li>
+          <li>Interpret the result in context.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">The paper has 75 marks. The questions increase in modelling depth more than in algebra difficulty.</div>
+  </section>
+
+  <section class="slide" data-number="3" aria-label="Slide 3">
+    <p class="kicker">Formula Language</p>
+    <h2>Notation We Will Use</h2>
+    <table>
+      <thead><tr><th>Notation</th><th>Meaning</th><th>Typical use</th></tr></thead>
+      <tbody>
+        <tr><td class="math">P(A)</td><td>Probability of event A</td><td>Venn diagrams, tree diagrams</td></tr>
+        <tr><td class="math">P(A | B)</td><td>Probability of A given B has happened</td><td>Conditional probability</td></tr>
+        <tr><td class="math">E(X)</td><td>Expected value, or long-run mean, of X</td><td>Discrete random variables</td></tr>
+        <tr><td class="math">Var(X)</td><td>Variance, a measure of spread</td><td>Random variables and distributions</td></tr>
+        <tr><td class="math">z = (x - mean) / sd</td><td>Standardising a normal variable</td><td>Normal distribution probabilities</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide center lavender" data-number="4" aria-label="Slide 4">
+    <p class="kicker">Question 1</p>
+    <h2>Venn Diagrams and Conditional Probability</h2>
+    <p class="lead">We use probability rules to find unknown regions, test independence, and place a new event.</p>
+  </section>
+
+  <section class="slide" data-number="5" aria-label="Slide 5">
+    <p class="kicker">Q1 - The Problem</p>
+    <h2>What Are We Given?</h2>
+    <div class="grid">
+      <div class="chart-card">
+        <svg viewBox="0 0 620 330" role="img" aria-label="Venn diagram for events A, B and C">
+          <rect x="18" y="18" width="584" height="294" rx="12" fill="#fffdf8" stroke="#9aa7b8" stroke-width="3" />
+          <ellipse cx="230" cy="160" rx="175" ry="108" fill="#dfeeff" stroke="#5f8edb" stroke-width="4" fill-opacity="0.66" />
+          <ellipse cx="390" cy="160" rx="175" ry="108" fill="#ffe5d7" stroke="#e8985f" stroke-width="4" fill-opacity="0.66" />
+          <ellipse cx="252" cy="160" rx="78" ry="66" fill="#ece7ff" stroke="#8b78ca" stroke-width="4" fill-opacity="0.62" />
+          <text x="92" y="96" font-size="25" font-style="italic" font-weight="800" fill="#273244">A</text>
+          <text x="520" y="96" font-size="25" font-style="italic" font-weight="800" fill="#273244">B</text>
+          <text x="178" y="122" font-size="25" font-style="italic" font-weight="800" fill="#273244">C</text>
+          <text x="98" y="176" font-size="24">0.04</text>
+          <text x="198" y="176" font-size="24">0.06</text>
+          <text x="288" y="176" font-size="24">p</text>
+          <text x="388" y="145" font-size="24">q</text>
+          <text x="505" y="176" font-size="24">0.3</text>
+          <text x="538" y="286" font-size="24">0.4</text>
+        </svg>
+      </div>
+      <div class="panel">
+        <h3>Tasks</h3>
+        <ul>
+          <li>Find <span class="math">P(B)</span>.</li>
+          <li>Decide whether A and B are independent.</li>
+          <li>Use <span class="math">P(C | B) = P(C)</span> to find <span class="math">p</span> and <span class="math">q</span>.</li>
+          <li>Draw an event D that is mutually exclusive with A but overlaps B.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="6" aria-label="Slide 6">
+    <p class="kicker">Q1 - Definitions</p>
+    <h2>Key Terms</h2>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Independent events</h3>
+        <p>A and B are independent if knowing one happened does not change the probability of the other.</p>
+        <p class="formula">P(A and B) = P(A)P(B)</p>
+      </div>
+      <div class="panel peach">
+        <h3>Conditional probability</h3>
+        <p><span class="math">P(C | B)</span> means "probability of C, given B". We restrict attention to the B region.</p>
+        <p class="formula">P(C | B) = P(C and B) / P(B)</p>
+      </div>
+      <div class="panel lavender">
+        <h3>Mutually exclusive</h3>
+        <p>Two events cannot happen at the same time.</p>
+        <p class="formula">A and D mutually exclusive means P(A and D) = 0</p>
+      </div>
+      <div class="panel sky">
+        <h3>Total probability</h3>
+        <p>All separate regions in the sample space add to 1.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="7" aria-label="Slide 7">
+    <p class="kicker">Q1 - Approach</p>
+    <h2>General Strategy</h2>
+    <ol class="steps">
+      <li>Use the fact that all regions in the Venn diagram add to 1 to find <span class="math">p + q</span>.</li>
+      <li>Add the regions inside B to find <span class="math">P(B)</span>.</li>
+      <li>Use the independence test <span class="math">P(A and B) = P(A)P(B)</span>.</li>
+      <li>Translate <span class="math">P(C | B) = P(C)</span> into an equation involving p.</li>
+      <li>Use <span class="math">p + q</span> to finish.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="8" aria-label="Slide 8">
+    <p class="kicker">Q1(a) and Q1(b)</p>
+    <h2>Finding P(B) and Testing Independence</h2>
+    <p>First find the unknown total:</p>
+    <p class="formula">0.04 + 0.06 + p + q + 0.3 + 0.4 = 1<br>p + q = 0.2</p>
+    <p>Event B contains <span class="math">p</span>, <span class="math">q</span>, and <span class="math">0.3</span>.</p>
+    <p class="formula">P(B) = p + q + 0.3 = 0.2 + 0.3 = 0.5</p>
+    <p>For independence:</p>
+    <p class="formula">P(A) = 0.04 + 0.06 + p + q = 0.3<br>P(A and B) = p + q = 0.2<br>P(A)P(B) = 0.3 x 0.5 = 0.15</p>
+    <div class="answer">Since 0.15 is not equal to 0.2, A and B are not independent.</div>
+  </section>
+
+  <section class="slide" data-number="9" aria-label="Slide 9">
+    <p class="kicker">Q1(c)</p>
+    <h2>Using Conditional Probability</h2>
+    <p>The statement <span class="math">P(C | B) = P(C)</span> means that the probability of C is unchanged when we know B has happened.</p>
+    <p class="formula">P(C | B) = P(C and B) / P(B) = p / 0.5</p>
+    <p>The event C contains the regions <span class="math">0.06</span> and <span class="math">p</span>, so:</p>
+    <p class="formula">P(C) = p + 0.06</p>
+    <p>Set these equal:</p>
+    <p class="formula">p / 0.5 = p + 0.06<br>2p = p + 0.06<br>p = 0.06</p>
+    <p>Then use <span class="math">p + q = 0.2</span>.</p>
+    <p class="formula">q = 0.2 - 0.06 = 0.14</p>
+  </section>
+
+  <section class="slide" data-number="10" aria-label="Slide 10">
+    <p class="kicker">Q1(d)</p>
+    <h2>Where Can Event D Go?</h2>
+    <div class="grid">
+      <div class="chart-card">
+        <svg viewBox="0 0 620 330" role="img" aria-label="Venn diagram with possible D">
+          <rect x="18" y="18" width="584" height="294" rx="12" fill="#fffdf8" stroke="#9aa7b8" stroke-width="3" />
+          <ellipse cx="230" cy="160" rx="175" ry="108" fill="#dfeeff" stroke="#5f8edb" stroke-width="4" fill-opacity="0.66" />
+          <ellipse cx="390" cy="160" rx="175" ry="108" fill="#ffe5d7" stroke="#e8985f" stroke-width="4" fill-opacity="0.66" />
+          <ellipse cx="252" cy="160" rx="78" ry="66" fill="#ece7ff" stroke="#8b78ca" stroke-width="4" fill-opacity="0.62" />
+          <ellipse cx="440" cy="238" rx="72" ry="58" fill="#dff4ea" stroke="#273244" stroke-width="4" fill-opacity="0.58" />
+          <text x="92" y="96" font-size="25" font-style="italic" font-weight="800">A</text>
+          <text x="520" y="96" font-size="25" font-style="italic" font-weight="800">B</text>
+          <text x="178" y="122" font-size="25" font-style="italic" font-weight="800">C</text>
+          <text x="466" y="292" font-size="25" font-style="italic" font-weight="800">D</text>
+          <text x="98" y="176" font-size="24">0.04</text>
+          <text x="198" y="176" font-size="24">0.06</text>
+          <text x="288" y="176" font-size="24">0.06</text>
+          <text x="388" y="145" font-size="24">0.14</text>
+          <text x="505" y="176" font-size="24">0.3</text>
+          <text x="538" y="286" font-size="24">0.4</text>
+        </svg>
+      </div>
+      <div class="panel">
+        <h3>Reasoning</h3>
+        <ul>
+          <li>D must not overlap A at all.</li>
+          <li>D must overlap B, because <span class="math">P(B and D) &gt; 0</span>.</li>
+          <li>A valid D can sit partly inside B-only and partly outside B, as long as it avoids A.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="11" aria-label="Slide 11">
+    <p class="kicker">Q1 Answers</p>
+    <h2>Final Answers and Notes</h2>
+    <div class="grid">
+      <div class="panel answer">
+        <h3>Answers</h3>
+        <ul>
+          <li>(a) <span class="math">P(B) = 0.5</span></li>
+          <li>(b) A and B are not independent.</li>
+          <li>(c) <span class="math">p = 0.06, q = 0.14</span></li>
+          <li>(d) D overlaps B but does not overlap A.</li>
+        </ul>
+      </div>
+      <div class="panel lemon">
+        <h3>Useful note</h3>
+        <p>When a Venn question gives unknown regions, first add all regions to 1. This often gives a useful relationship before any advanced formula is needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide center sky" data-number="12" aria-label="Slide 12">
+    <p class="kicker">Question 2</p>
+    <h2>Correlation and Regression</h2>
+    <p class="lead">We measure the strength of a linear relationship and build a line to predict paper spending from number of employees.</p>
+  </section>
+
+  <section class="slide" data-number="13" aria-label="Slide 13">
+    <p class="kicker">Q2 - The Problem</p>
+    <h2>What Are We Given?</h2>
+    <p>A company records, for 12 offices:</p>
+    <ul>
+      <li><span class="math">x</span> = number of employees</li>
+      <li><span class="math">p</span> = amount spent on paper in a year, measured in hundreds of dollars</li>
+    </ul>
+    <p class="formula">sum x = 93, Sxx = 148.25, sum p = 273, sum p^2 = 6602.72, sum xp = 2347, n = 12</p>
+    <div class="callout">The variable <span class="math">p</span> is in hundreds of dollars, so <span class="math">p = 10</span> means $1000.</div>
+  </section>
+
+  <section class="slide" data-number="14" aria-label="Slide 14">
+    <p class="kicker">Q2 - Definitions</p>
+    <h2>The Statistics in the Question</h2>
+    <table>
+      <thead><tr><th>Term</th><th>Meaning</th><th>Formula</th></tr></thead>
+      <tbody>
+        <tr><td><span class="math">Sxx</span></td><td>Corrected spread of x-values</td><td class="math">sum x^2 - (sum x)^2 / n</td></tr>
+        <tr><td><span class="math">Spp</span></td><td>Corrected spread of p-values</td><td class="math">sum p^2 - (sum p)^2 / n</td></tr>
+        <tr><td><span class="math">Sxp</span></td><td>Corrected joint variation between x and p</td><td class="math">sum xp - (sum x)(sum p) / n</td></tr>
+        <tr><td>PMCC, <span class="math">r</span></td><td>Product moment correlation coefficient</td><td class="math">r = Sxp / sqrt(Sxx Spp)</td></tr>
+        <tr><td>Regression line</td><td>Line used to estimate p from x</td><td class="math">p = a + bx</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide" data-number="15" aria-label="Slide 15">
+    <p class="kicker">Q2 - Approach</p>
+    <h2>General Strategy</h2>
+    <ol class="steps">
+      <li>Use the corrected product formula to show <span class="math">Sxp</span>.</li>
+      <li>Calculate <span class="math">Spp</span>, because PMCC needs it.</li>
+      <li>Use <span class="math">r = Sxp / sqrt(Sxx Spp)</span>.</li>
+      <li>Find regression gradient <span class="math">b = Sxp / Sxx</span>.</li>
+      <li>Use means <span class="math">xbar</span> and <span class="math">pbar</span> to find intercept <span class="math">a</span>.</li>
+      <li>Apply the director's new model and compare with the original average spending.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="16" aria-label="Slide 16">
+    <p class="kicker">Q2(a) and Q2(b)</p>
+    <h2>Calculating Sxp and r</h2>
+    <p>For corrected joint variation:</p>
+    <p class="formula">Sxp = sum xp - (sum x)(sum p) / n<br>Sxp = 2347 - (93 x 273) / 12<br>Sxp = 2347 - 2115.75 = 231.25</p>
+    <p>Now find <span class="math">Spp</span>:</p>
+    <p class="formula">Spp = sum p^2 - (sum p)^2 / n<br>Spp = 6602.72 - 273^2 / 12 = 391.97</p>
+    <p>Then:</p>
+    <p class="formula">r = 231.25 / sqrt(148.25 x 391.97) = 0.959307...</p>
+    <div class="answer">PMCC: <span class="math">r = 0.959</span> to 3 significant figures.</div>
+  </section>
+
+  <section class="slide" data-number="17" aria-label="Slide 17">
+    <p class="kicker">Q2(c)</p>
+    <h2>Regression Line of p on x</h2>
+    <p>For the regression line <span class="math">p = a + bx</span>, the gradient is:</p>
+    <p class="formula">b = Sxp / Sxx = 231.25 / 148.25 = 1.559865...</p>
+    <p>The line passes through the mean point <span class="math">(xbar, pbar)</span>.</p>
+    <p class="formula">xbar = 93 / 12 = 7.75<br>pbar = 273 / 12 = 22.75</p>
+    <p>Use <span class="math">a = pbar - b xbar</span>.</p>
+    <p class="formula">a = 22.75 - 1.559865... x 7.75 = 10.661...</p>
+    <div class="answer">Regression line: <span class="math">p = 10.7 + 1.56x</span></div>
+  </section>
+
+  <section class="slide" data-number="18" aria-label="Slide 18">
+    <p class="kicker">Q2(d)</p>
+    <h2>Interpreting the Gradient</h2>
+    <p>The gradient tells us the change in predicted <span class="math">p</span> when <span class="math">x</span> increases by 1.</p>
+    <p class="formula">b = 1.56</p>
+    <p>Since <span class="math">p</span> is measured in hundreds of dollars:</p>
+    <p class="formula">1.56 hundreds of dollars = 1.56 x 100 = 156 dollars</p>
+    <div class="answer">For each extra employee, the model predicts about $156 more spent on paper per year.</div>
+  </section>
+
+  <section class="slide" data-number="19" aria-label="Slide 19">
+    <p class="kicker">Q2(e)</p>
+    <h2>Director's Saving Model</h2>
+    <p>The director's model reduces the intercept to <span class="math">4/5 a</span> and the employee part to <span class="math">1/2 bx</span>.</p>
+    <p>Use the average number of employees across the 12 offices:</p>
+    <p class="formula">xbar = 93 / 12 = 7.75</p>
+    <p>New predicted average spending:</p>
+    <p class="formula">new p = (4/5)(10.661...) + (1/2)(1.559865...)(7.75)<br>new p = 14.573...</p>
+    <p>Original average spending was:</p>
+    <p class="formula">pbar = 273 / 12 = 22.75</p>
+    <p>Percentage saving:</p>
+    <p class="formula">((22.75 - 14.573...) / 22.75) x 100 = 35.94...</p>
+    <div class="answer">Estimated percentage saving: <span class="math">36%</span></div>
+  </section>
+
+  <section class="slide" data-number="20" aria-label="Slide 20">
+    <p class="kicker">Q2 Answers</p>
+    <h2>Final Answers and Notes</h2>
+    <div class="grid">
+      <div class="panel answer">
+        <ul>
+          <li>(a) <span class="math">Sxp = 231.25</span></li>
+          <li>(b) <span class="math">r = 0.959</span></li>
+          <li>(c) <span class="math">p = 10.7 + 1.56x</span></li>
+          <li>(d) About $156 extra per additional employee per year.</li>
+          <li>(e) Saving is about <span class="math">36%</span>.</li>
+        </ul>
+      </div>
+      <div class="panel lemon">
+        <h3>Useful note</h3>
+        <p>Always check units. In this question, the regression line predicts hundreds of dollars, not dollars.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide center mint" data-number="21" aria-label="Slide 21">
+    <p class="kicker">Question 3</p>
+    <h2>Stem-and-Leaf, Box Plots, IQR, and Outliers</h2>
+    <p class="lead">We summarise passenger ages and use a box plot to compare distributions.</p>
+  </section>
+
+  <section class="slide" data-number="22" aria-label="Slide 22">
+    <p class="kicker">Q3 - The Problem</p>
+    <h2>What Are We Given?</h2>
+    <p>A stem-and-leaf diagram gives the ages of 35 male passengers.</p>
+    <table class="tight">
+      <thead><tr><th>Stem</th><th>Leaves</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>3</td></tr>
+        <tr><td>2</td><td>7, 9</td></tr>
+        <tr><td>3</td><td>1, 2, 8, 8</td></tr>
+        <tr><td>4</td><td>5, 5, 6, 7, 8, 8, 9</td></tr>
+        <tr><td>5</td><td>2, 2, 3, 3, 4, 4, 5, 6, 6, 8</td></tr>
+        <tr><td>6</td><td>0, 1, 1, 4, 4, 4, 7</td></tr>
+        <tr><td>7</td><td>3, 6</td></tr>
+        <tr><td>8</td><td>7, 8</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">Key: <span class="math">1 | 3</span> means 13 years.</div>
+  </section>
+
+  <section class="slide" data-number="23" aria-label="Slide 23">
+    <p class="kicker">Q3 - Definitions</p>
+    <h2>Summary Statistics</h2>
+    <div class="grid">
+      <div class="panel sky">
+        <h3>Median</h3>
+        <p>The middle value after the data is in order.</p>
+        <p class="formula">position = (n + 1) / 2</p>
+      </div>
+      <div class="panel mint">
+        <h3>Quartiles</h3>
+        <p>Values that split ordered data into quarters. <span class="math">Q1</span> is the lower quartile and <span class="math">Q3</span> is the upper quartile.</p>
+      </div>
+      <div class="panel peach">
+        <h3>IQR</h3>
+        <p>Interquartile range. It measures the spread of the middle 50%.</p>
+        <p class="formula">IQR = Q3 - Q1</p>
+      </div>
+      <div class="panel lavender">
+        <h3>Outlier rule</h3>
+        <p>Outliers are unusually far from the central data.</p>
+        <p class="formula">below Q1 - 1.5 IQR<br>above Q3 + 1.5 IQR</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="24" aria-label="Slide 24">
+    <p class="kicker">Q3 - Approach</p>
+    <h2>General Strategy</h2>
+    <ol class="steps">
+      <li>Use the ordered stem-and-leaf data to locate the median and quartiles.</li>
+      <li>Calculate the IQR from <span class="math">Q3 - Q1</span>.</li>
+      <li>Calculate the lower and upper outlier limits.</li>
+      <li>Draw the box plot using <span class="math">Q1</span>, median, <span class="math">Q3</span>, whiskers, and outliers.</li>
+      <li>Compare male and female box plots using named statistics, not vague impressions.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="25" aria-label="Slide 25">
+    <p class="kicker">Q3(a) and Q3(b)</p>
+    <h2>Median and IQR</h2>
+    <p>There are <span class="math">n = 35</span> values.</p>
+    <p class="formula">median position = (35 + 1) / 2 = 18th value</p>
+    <p>Counting through the ordered data, the 18th value is 53.</p>
+    <p>For the quartiles, the lower and upper middle positions give:</p>
+    <p class="formula">Q1 = 45<br>Q3 = 61</p>
+    <p>Therefore:</p>
+    <p class="formula">IQR = Q3 - Q1 = 61 - 45 = 16</p>
+    <div class="answer">Median = 53, and the IQR is 16.</div>
+  </section>
+
+  <section class="slide" data-number="26" aria-label="Slide 26">
+    <p class="kicker">Q3(c)</p>
+    <h2>Showing There Are 3 Outliers</h2>
+    <p>Use the outlier limits:</p>
+    <p class="formula">lower limit = Q1 - 1.5 x IQR = 45 - 1.5 x 16 = 21<br>upper limit = Q3 + 1.5 x IQR = 61 + 1.5 x 16 = 85</p>
+    <p>So outliers are:</p>
+    <p class="formula">values &lt; 21 or values &gt; 85</p>
+    <p>From the data, the values are:</p>
+    <p class="formula">13, 87, 88</p>
+    <div class="answer">There are 3 outliers.</div>
+  </section>
+
+  <section class="slide" data-number="27" aria-label="Slide 27">
+    <p class="kicker">Q3(d)</p>
+    <h2>Drawing the Male Box Plot</h2>
+    <div class="chart-card">
+      <svg viewBox="0 0 940 260" role="img" aria-label="Box plot for male passengers">
+        <line x1="70" y1="190" x2="870" y2="190" stroke="#69778d" stroke-width="3" />
+        <g fill="#273244" font-size="16" text-anchor="middle">
+          <text x="70" y="220">10</text><text x="170" y="220">20</text><text x="270" y="220">30</text><text x="370" y="220">40</text><text x="470" y="220">50</text><text x="570" y="220">60</text><text x="670" y="220">70</text><text x="770" y="220">80</text><text x="870" y="220">90</text>
+        </g>
+        <g stroke="#69778d" stroke-width="2">
+          <line x1="70" y1="185" x2="70" y2="195" /><line x1="170" y1="185" x2="170" y2="195" /><line x1="270" y1="185" x2="270" y2="195" /><line x1="370" y1="185" x2="370" y2="195" /><line x1="470" y1="185" x2="470" y2="195" /><line x1="570" y1="185" x2="570" y2="195" /><line x1="670" y1="185" x2="670" y2="195" /><line x1="770" y1="185" x2="770" y2="195" /><line x1="870" y1="185" x2="870" y2="195" />
+        </g>
+        <line x1="240" y1="105" x2="420" y2="105" stroke="#5f8edb" stroke-width="5" />
+        <line x1="580" y1="105" x2="730" y2="105" stroke="#5f8edb" stroke-width="5" />
+        <rect x="420" y="70" width="160" height="70" fill="#dfeeff" stroke="#5f8edb" stroke-width="5" />
+        <line x1="500" y1="70" x2="500" y2="140" stroke="#d96f91" stroke-width="5" />
+        <line x1="240" y1="82" x2="240" y2="128" stroke="#5f8edb" stroke-width="5" />
+        <line x1="730" y1="82" x2="730" y2="128" stroke="#5f8edb" stroke-width="5" />
+        <circle cx="100" cy="105" r="8" fill="#e8985f" />
+        <circle cx="840" cy="105" r="8" fill="#e8985f" />
+        <circle cx="850" cy="105" r="8" fill="#e8985f" />
+        <g fill="#273244" font-size="16" text-anchor="middle">
+          <text x="420" y="55">Q1=45</text><text x="500" y="55">Med=53</text><text x="580" y="55">Q3=61</text>
+          <text x="240" y="155">27</text><text x="730" y="155">76</text><text x="100" y="86">13</text><text x="845" y="86">87,88</text>
+        </g>
+      </svg>
+    </div>
+    <div class="callout">Whiskers go to the smallest and largest non-outlier values: 27 and 76. Outliers are plotted separately.</div>
+  </section>
+
+  <section class="slide" data-number="28" aria-label="Slide 28">
+    <p class="kicker">Q3(e)</p>
+    <h2>Comparing Male and Female Ages</h2>
+    <p>To compare distributions, name a statistic and state its value.</p>
+    <div class="grid">
+      <div class="panel sky">
+        <h3>Male passengers</h3>
+        <p>Median age = 53</p>
+      </div>
+      <div class="panel rose">
+        <h3>Female passengers</h3>
+        <p>Median age = 67</p>
+      </div>
+    </div>
+    <div class="answer">A valid comment: the female passengers are generally older, because their median age is 67 compared with 53 for the male passengers.</div>
+    <div class="callout">The mark depends on using a statistic correctly. A sentence like "the female box plot is further right" is too vague on its own.</div>
+  </section>
+
+  <section class="slide" data-number="29" aria-label="Slide 29">
+    <p class="kicker">Q3(f)</p>
+    <h2>Adding Anja's Family Without Changing the Female Box Plot</h2>
+    <p>If adding 4 new ages does not change the female box plot, the new values must fit inside the existing sections of the distribution.</p>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Granddaughter</h3>
+        <p>She is younger than both daughters. To keep the box plot unchanged, she can be in the lower section but must not create a new minimum or move Q1.</p>
+        <p class="formula">34 &lt;= granddaughter age &lt;= 56</p>
+      </div>
+      <div class="panel lavender">
+        <h3>Anja</h3>
+        <p>Anja is 23 years older than her eldest daughter. The eldest daughter can be in the upper middle section, about 67 to 72.</p>
+        <p class="formula">Anja = eldest daughter + 23<br>90 &lt;= Anja age &lt;= 93</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="30" aria-label="Slide 30">
+    <p class="kicker">Q3 Answers</p>
+    <h2>Final Answers and Notes</h2>
+    <div class="grid">
+      <div class="panel answer">
+        <ul>
+          <li>(a) Median = 53</li>
+          <li>(b) <span class="math">Q1 = 45, Q3 = 61, IQR = 16</span></li>
+          <li>(c) Outliers: 13, 87, 88</li>
+          <li>(d) Box: 45 to 61, median 53; whiskers 27 and 76; outliers 13, 87, 88.</li>
+          <li>(e) Females generally older: median 67 &gt; 53.</li>
+          <li>(f) Granddaughter: 34 to 56; Anja: 90 to 93.</li>
+        </ul>
+      </div>
+      <div class="panel lemon">
+        <h3>Useful note</h3>
+        <p>For box plots with outliers, whiskers stop at the last value that is not an outlier.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide center peach" data-number="31" aria-label="Slide 31">
+    <p class="kicker">Question 4</p>
+    <h2>Tree Diagrams and Discrete Distributions</h2>
+    <p class="lead">We track a three-stage random process, then turn the outcomes into a probability distribution.</p>
+  </section>
+
+  <section class="slide" data-number="32" aria-label="Slide 32">
+    <p class="kicker">Q4 - The Problem</p>
+    <h2>The Game</h2>
+    <ul>
+      <li>Bag A contains 4 red and 2 yellow balls.</li>
+      <li>Bag B contains 4 red and 1 yellow balls.</li>
+      <li>Bag C starts with 6 red balls.</li>
+      <li>Draw from A, then B, placing each drawn ball into C.</li>
+      <li>Finally draw from C.</li>
+    </ul>
+    <div class="callout">The probabilities for the final draw from C depend on what happened in the first two draws.</div>
+  </section>
+
+  <section class="slide" data-number="33" aria-label="Slide 33">
+    <p class="kicker">Q4 - Definitions</p>
+    <h2>Tree Diagram Language</h2>
+    <div class="grid">
+      <div class="panel sky">
+        <h3>Branch</h3>
+        <p>One possible outcome at a stage of the experiment, with its probability written on it.</p>
+      </div>
+      <div class="panel mint">
+        <h3>Path</h3>
+        <p>A complete route through the tree, such as RYY.</p>
+      </div>
+      <div class="panel peach">
+        <h3>Multiply along a path</h3>
+        <p>The probability of a sequence is the product of branch probabilities.</p>
+      </div>
+      <div class="panel lavender">
+        <h3>Add separate paths</h3>
+        <p>If an event can happen in several mutually exclusive ways, add those path probabilities.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="34" aria-label="Slide 34">
+    <p class="kicker">Q4 - Approach</p>
+    <h2>General Strategy</h2>
+    <ol class="steps">
+      <li>Complete Bag A and Bag B probabilities first.</li>
+      <li>For each A-B path, update Bag C before finding the final probabilities.</li>
+      <li>For exactly 2 yellow balls, list the valid paths: RYY, YRY, YYR.</li>
+      <li>Use conditional probability for part (c).</li>
+      <li>For <span class="math">X</span>, group paths by the number of yellow balls recorded.</li>
+      <li>Use <span class="math">E(X) = sum x P(X = x)</span>.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="35" aria-label="Slide 35">
+    <p class="kicker">Q4(a)</p>
+    <h2>Completed Tree Diagram</h2>
+    <div class="chart-card">
+      <svg viewBox="0 0 1120 520" role="img" aria-label="Completed tree diagram for drawing balls from bags A, B and C">
+        <defs>
+          <marker id="arrow-tree" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#69778d" />
+          </marker>
+        </defs>
+
+        <g fill="#273244" font-size="19" font-weight="800">
+          <text x="70" y="40">Start</text>
+          <text x="210" y="40">Bag A</text>
+          <text x="430" y="40">Bag B</text>
+          <text x="675" y="40">Bag C</text>
+          <text x="930" y="40">Path</text>
+        </g>
+
+        <g stroke="#69778d" stroke-width="3" fill="none" marker-end="url(#arrow-tree)">
+          <line x1="95" y1="260" x2="245" y2="150" />
+          <line x1="95" y1="260" x2="245" y2="370" />
+
+          <line x1="275" y1="150" x2="455" y2="85" />
+          <line x1="275" y1="150" x2="455" y2="215" />
+          <line x1="275" y1="370" x2="455" y2="305" />
+          <line x1="275" y1="370" x2="455" y2="435" />
+
+          <line x1="495" y1="85" x2="705" y2="55" />
+          <line x1="495" y1="85" x2="705" y2="115" />
+          <line x1="495" y1="215" x2="705" y2="185" />
+          <line x1="495" y1="215" x2="705" y2="245" />
+          <line x1="495" y1="305" x2="705" y2="275" />
+          <line x1="495" y1="305" x2="705" y2="335" />
+          <line x1="495" y1="435" x2="705" y2="405" />
+          <line x1="495" y1="435" x2="705" y2="465" />
+        </g>
+
+        <g fill="#273244" font-size="18">
+          <text x="155" y="180">2/3</text>
+          <text x="155" y="345">1/3</text>
+
+          <text x="347" y="103">4/5</text>
+          <text x="347" y="202">1/5</text>
+          <text x="347" y="325">4/5</text>
+          <text x="347" y="424">1/5</text>
+
+          <text x="586" y="58">1</text>
+          <text x="586" y="118">0</text>
+          <text x="586" y="188">7/8</text>
+          <text x="586" y="248">1/8</text>
+          <text x="586" y="278">7/8</text>
+          <text x="586" y="338">1/8</text>
+          <text x="586" y="408">6/8</text>
+          <text x="586" y="468">2/8</text>
+        </g>
+
+        <g>
+          <circle cx="95" cy="260" r="16" fill="#ece7ff" stroke="#8b78ca" stroke-width="3" />
+
+          <circle cx="260" cy="150" r="21" fill="#ffdfe7" stroke="#d96f91" stroke-width="3" />
+          <circle cx="260" cy="370" r="21" fill="#fff4bf" stroke="#e8985f" stroke-width="3" />
+          <text x="253" y="157" font-size="20" font-weight="850" fill="#273244">R</text>
+          <text x="253" y="377" font-size="20" font-weight="850" fill="#273244">Y</text>
+
+          <circle cx="475" cy="85" r="21" fill="#ffdfe7" stroke="#d96f91" stroke-width="3" />
+          <circle cx="475" cy="215" r="21" fill="#fff4bf" stroke="#e8985f" stroke-width="3" />
+          <circle cx="475" cy="305" r="21" fill="#ffdfe7" stroke="#d96f91" stroke-width="3" />
+          <circle cx="475" cy="435" r="21" fill="#fff4bf" stroke="#e8985f" stroke-width="3" />
+          <text x="468" y="92" font-size="20" font-weight="850" fill="#273244">R</text>
+          <text x="468" y="222" font-size="20" font-weight="850" fill="#273244">Y</text>
+          <text x="468" y="312" font-size="20" font-weight="850" fill="#273244">R</text>
+          <text x="468" y="442" font-size="20" font-weight="850" fill="#273244">Y</text>
+
+          <circle cx="725" cy="55" r="20" fill="#ffdfe7" stroke="#d96f91" stroke-width="3" />
+          <circle cx="725" cy="115" r="20" fill="#fff4bf" stroke="#e8985f" stroke-width="3" />
+          <circle cx="725" cy="185" r="20" fill="#ffdfe7" stroke="#d96f91" stroke-width="3" />
+          <circle cx="725" cy="245" r="20" fill="#fff4bf" stroke="#e8985f" stroke-width="3" />
+          <circle cx="725" cy="275" r="20" fill="#ffdfe7" stroke="#d96f91" stroke-width="3" />
+          <circle cx="725" cy="335" r="20" fill="#fff4bf" stroke="#e8985f" stroke-width="3" />
+          <circle cx="725" cy="405" r="20" fill="#ffdfe7" stroke="#d96f91" stroke-width="3" />
+          <circle cx="725" cy="465" r="20" fill="#fff4bf" stroke="#e8985f" stroke-width="3" />
+          <g font-size="19" font-weight="850" fill="#273244">
+            <text x="719" y="62">R</text><text x="719" y="122">Y</text>
+            <text x="719" y="192">R</text><text x="719" y="252">Y</text>
+            <text x="719" y="282">R</text><text x="719" y="342">Y</text>
+            <text x="719" y="412">R</text><text x="719" y="472">Y</text>
+          </g>
+        </g>
+
+        <g fill="#273244" font-size="19" font-family="Cascadia Mono, Consolas, monospace">
+          <text x="870" y="62">RRR: (2/3)(4/5)(1)</text>
+          <text x="870" y="122">RRY: (2/3)(4/5)(0)</text>
+          <text x="870" y="192">RYR: (2/3)(1/5)(7/8)</text>
+          <text x="870" y="252">RYY: (2/3)(1/5)(1/8)</text>
+          <text x="870" y="282">YRR: (1/3)(4/5)(7/8)</text>
+          <text x="870" y="342">YRY: (1/3)(4/5)(1/8)</text>
+          <text x="870" y="412">YYR: (1/3)(1/5)(6/8)</text>
+          <text x="870" y="472">YYY: (1/3)(1/5)(2/8)</text>
+        </g>
+      </svg>
+    </div>
+    <div class="callout">For Bag C, update the contents after the first two draws: RR gives 8 red and 0 yellow; one yellow gives 7 red and 1 yellow; YY gives 6 red and 2 yellow.</div>
+  </section>
+
+  <section class="slide" data-number="36" aria-label="Slide 36">
+    <p class="kicker">Q4(b)</p>
+    <h2>Exactly Two Yellow Balls</h2>
+    <p>Exactly two yellows can happen in three ways:</p>
+    <p class="formula">RYY, YRY, YYR</p>
+    <p>Calculate each path:</p>
+    <p class="formula">P(RYY) = (2/3)(1/5)(1/8) = 2/120<br>P(YRY) = (1/3)(4/5)(1/8) = 4/120<br>P(YYR) = (1/3)(1/5)(6/8) = 6/120</p>
+    <p>Add them because the paths are separate:</p>
+    <p class="formula">2/120 + 4/120 + 6/120 = 12/120 = 1/10</p>
+    <div class="answer">Probability of exactly two yellow balls is <span class="math">1/10</span>.</div>
+  </section>
+
+  <section class="slide" data-number="37" aria-label="Slide 37">
+    <p class="kicker">Q4(c)</p>
+    <h2>Conditional Probability from the Exactly-Two Event</h2>
+    <p>We already know:</p>
+    <p class="formula">P(exactly two yellows) = 1/10 = 12/120</p>
+    <p>For the ball from Bag A to be red while exactly two yellows happen, the only path is RYY.</p>
+    <p class="formula">P(RYY) = 2/120</p>
+    <p>So:</p>
+    <p class="formula">P(A is red | exactly two yellows) = (2/120) / (12/120) = 1/6</p>
+    <div class="answer">Answer: <span class="math">1/6</span></div>
+  </section>
+
+  <section class="slide" data-number="38" aria-label="Slide 38">
+    <p class="kicker">Q4(d)</p>
+    <h2>Probability Distribution of X</h2>
+    <p><span class="math">X</span> is the number of yellow balls recorded in the game. Possible values are 0, 1, 2, 3.</p>
+    <table>
+      <thead><tr><th>x</th><th>Paths</th><th>P(X = x)</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>RRR</td><td><span class="math">64/120 = 8/15</span></td></tr>
+        <tr><td>1</td><td>RYR, YRR</td><td><span class="math">42/120 = 7/20</span></td></tr>
+        <tr><td>2</td><td>RYY, YRY, YYR</td><td><span class="math">12/120 = 1/10</span></td></tr>
+        <tr><td>3</td><td>YYY</td><td><span class="math">2/120 = 1/60</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout">Check: probabilities add to <span class="math">(64+42+12+2)/120 = 1</span>.</div>
+  </section>
+
+  <section class="slide" data-number="39" aria-label="Slide 39">
+    <p class="kicker">Q4(e)</p>
+    <h2>Expected Number of Yellow Balls</h2>
+    <p>The expected value is the long-run average result if the game is repeated many times.</p>
+    <p class="formula">E(X) = sum x P(X = x)</p>
+    <p>Substitute the distribution:</p>
+    <p class="formula">E(X) = 0(64/120) + 1(42/120) + 2(12/120) + 3(2/120)<br>E(X) = (42 + 24 + 6) / 120 = 72/120 = 0.6</p>
+    <div class="answer">Expected number of yellow balls: <span class="math">E(X) = 0.6</span></div>
+  </section>
+
+  <section class="slide" data-number="40" aria-label="Slide 40">
+    <p class="kicker">Q4 Answers</p>
+    <h2>Final Answers and Notes</h2>
+    <div class="grid">
+      <div class="panel answer">
+        <ul>
+          <li>(a) Tree probabilities as listed.</li>
+          <li>(b) <span class="math">P(exactly 2 yellows) = 1/10</span></li>
+          <li>(c) <span class="math">P(A red | exactly 2 yellows) = 1/6</span></li>
+          <li>(d) Distribution: <span class="math">8/15, 7/20, 1/10, 1/60</span> for <span class="math">x=0,1,2,3</span>.</li>
+          <li>(e) <span class="math">E(X)=0.6</span></li>
+        </ul>
+      </div>
+      <div class="panel lemon">
+        <h3>Useful note</h3>
+        <p>When a later bag changes because of earlier draws, the final branch probabilities must be different on different paths.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide center rose" data-number="41" aria-label="Slide 41">
+    <p class="kicker">Question 5</p>
+    <h2>Discrete Random Variables</h2>
+    <p class="lead">We use symmetry, cumulative probability, variance, and a transformation from Y to a distance D.</p>
+  </section>
+
+  <section class="slide" data-number="42" aria-label="Slide 42">
+    <p class="kicker">Q5 - The Problem</p>
+    <h2>Probability Distribution of Y</h2>
+    <table>
+      <thead><tr><th>y</th><th>-9</th><th>-5</th><th>0</th><th>5</th><th>9</th></tr></thead>
+      <tbody>
+        <tr><th>P(Y = y)</th><td>q</td><td>r</td><td>u</td><td>r</td><td>q</td></tr>
+      </tbody>
+    </table>
+    <div class="tag-row">
+      <span class="tag">F(0) = 19/30</span>
+      <span class="tag">Var(Y) = 37</span>
+      <span class="tag">P = (12, Y)</span>
+      <span class="tag">D = OP</span>
+    </div>
+    <p>We need <span class="math">E(Y)</span>, <span class="math">u</span>, <span class="math">q</span>, <span class="math">r</span>, and the probability distribution of <span class="math">D</span>.</p>
+  </section>
+
+  <section class="slide" data-number="43" aria-label="Slide 43">
+    <p class="kicker">Q5 - Definitions</p>
+    <h2>Random Variable Tools</h2>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Discrete random variable</h3>
+        <p>A variable that can take separate values, each with a probability.</p>
+      </div>
+      <div class="panel sky">
+        <h3>Expected value</h3>
+        <p>The long-run average.</p>
+        <p class="formula">E(Y) = sum y P(Y = y)</p>
+      </div>
+      <div class="panel peach">
+        <h3>Variance</h3>
+        <p>A measure of spread around the mean.</p>
+        <p class="formula">Var(Y) = E(Y^2) - [E(Y)]^2</p>
+      </div>
+      <div class="panel lavender">
+        <h3>Cumulative distribution function</h3>
+        <p><span class="math">F(y) = P(Y &lt;= y)</span>. So <span class="math">F(0)</span> adds probabilities at -9, -5, and 0.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="44" aria-label="Slide 44">
+    <p class="kicker">Q5 - Approach</p>
+    <h2>General Strategy</h2>
+    <ol class="steps">
+      <li>Use symmetry to write down <span class="math">E(Y)</span>.</li>
+      <li>Use <span class="math">F(0)=19/30</span> and total probability = 1 to solve for <span class="math">u</span>.</li>
+      <li>Use variance to create a second equation for <span class="math">q</span> and <span class="math">r</span>.</li>
+      <li>Use <span class="math">D = sqrt(12^2 + Y^2)</span> to convert each possible Y value into a distance.</li>
+      <li>Add probabilities for Y values that give the same distance.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="45" aria-label="Slide 45">
+    <p class="kicker">Q5(a)</p>
+    <h2>Expected Value by Symmetry</h2>
+    <p>The distribution is symmetric about 0:</p>
+    <table>
+      <thead><tr><th>Pair</th><th>Probabilities</th><th>Effect on mean</th></tr></thead>
+      <tbody>
+        <tr><td>-9 and 9</td><td>both q</td><td>cancel</td></tr>
+        <tr><td>-5 and 5</td><td>both r</td><td>cancel</td></tr>
+        <tr><td>0</td><td>u</td><td>contributes 0</td></tr>
+      </tbody>
+    </table>
+    <p class="formula">E(Y) = -9q - 5r + 0u + 5r + 9q = 0</p>
+    <div class="answer">Answer: <span class="math">E(Y) = 0</span></div>
+  </section>
+
+  <section class="slide" data-number="46" aria-label="Slide 46">
+    <p class="kicker">Q5(b)</p>
+    <h2>Showing u = 4/15</h2>
+    <p>From the cumulative distribution function:</p>
+    <p class="formula">F(0) = P(Y &lt;= 0) = q + r + u = 19/30</p>
+    <p>Total probability is 1:</p>
+    <p class="formula">2q + 2r + u = 1</p>
+    <p>Rewrite the second equation as:</p>
+    <p class="formula">2(q + r) + u = 1</p>
+    <p>Since <span class="math">q + r + u = 19/30</span>, subtract to get:</p>
+    <p class="formula">q + r = 1 - 19/30 = 11/30</p>
+    <p>Then:</p>
+    <p class="formula">u = 19/30 - 11/30 = 8/30 = 4/15</p>
+  </section>
+
+  <section class="slide" data-number="47" aria-label="Slide 47">
+    <p class="kicker">Q5(c)</p>
+    <h2>Finding q and r from the Variance</h2>
+    <p>Because <span class="math">E(Y)=0</span>, the variance is just <span class="math">E(Y^2)</span>.</p>
+    <p class="formula">E(Y^2) = (-9)^2q + (-5)^2r + 0^2u + 5^2r + 9^2q<br>E(Y^2) = 162q + 50r</p>
+    <p>Given <span class="math">Var(Y)=37</span>:</p>
+    <p class="formula">162q + 50r = 37</p>
+    <p>Also from part (b):</p>
+    <p class="formula">q + r = 11/30</p>
+    <p>Solve by substituting <span class="math">r = 11/30 - q</span>:</p>
+    <p class="formula">162q + 50(11/30 - q) = 37<br>112q + 55/3 = 37<br>q = 1/6</p>
+    <p class="formula">r = 11/30 - 1/6 = 1/5</p>
+  </section>
+
+  <section class="slide" data-number="48" aria-label="Slide 48">
+    <p class="kicker">Q5(d)</p>
+    <h2>Turning Y into the Distance D</h2>
+    <p>The point is <span class="math">P = (12, Y)</span>. The distance from the origin is found using Pythagoras.</p>
+    <p class="formula">D = sqrt(12^2 + Y^2)</p>
+    <p>Use the values already found: <span class="math">u = 4/15</span>, <span class="math">r = 1/5</span>, and <span class="math">q = 1/6</span>.</p>
+    <table>
+      <thead><tr><th>Y value</th><th>D value</th><th>Probability contribution</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td><span class="math">sqrt(144) = 12</span></td><td><span class="math">u = 4/15</span></td></tr>
+        <tr><td>-5 or 5</td><td><span class="math">sqrt(144 + 25) = 13</span></td><td><span class="math">r + r = 2r = 2/5 = 6/15</span></td></tr>
+        <tr><td>-9 or 9</td><td><span class="math">sqrt(144 + 81) = 15</span></td><td><span class="math">q + q = 2q = 1/3 = 5/15</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout">The key idea is that opposite Y-values give the same distance because the formula uses <span class="math">Y^2</span>.</div>
+  </section>
+
+  <section class="slide" data-number="49" aria-label="Slide 49">
+    <p class="kicker">Q5(d)</p>
+    <h2>Distribution of D</h2>
+    <table>
+      <thead><tr><th>d</th><th>12</th><th>13</th><th>15</th></tr></thead>
+      <tbody>
+        <tr><th>P(D = d)</th><td>4/15</td><td>6/15 or 2/5</td><td>5/15 or 1/3</td></tr>
+      </tbody>
+    </table>
+    <p class="formula">P(D = 12) = P(Y = 0) = 4/15<br>P(D = 13) = P(Y = -5 or Y = 5) = 1/5 + 1/5 = 2/5<br>P(D = 15) = P(Y = -9 or Y = 9) = 1/6 + 1/6 = 1/3</p>
+    <div class="callout">The probabilities add to <span class="math">4/15 + 6/15 + 5/15 = 1</span>, or equivalently <span class="math">4/15 + 2/5 + 1/3 = 1</span>.</div>
+  </section>
+
+  <section class="slide" data-number="50" aria-label="Slide 50">
+    <p class="kicker">Q5 Answers</p>
+    <h2>Final Answers and Notes</h2>
+    <div class="grid">
+      <div class="panel answer">
+        <ul>
+          <li>(a) <span class="math">E(Y)=0</span></li>
+          <li>(b) <span class="math">u=4/15</span></li>
+          <li>(c) <span class="math">q=1/6, r=1/5</span></li>
+          <li>(d) <span class="math">D=12,13,15</span> with probabilities <span class="math">4/15, 6/15 or 2/5, 5/15 or 1/3</span>.</li>
+        </ul>
+      </div>
+      <div class="panel lemon">
+        <h3>Useful note</h3>
+        <p>When a transformation uses <span class="math">Y^2</span>, opposite values such as -5 and 5 often merge into the same new value.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide center lavender" data-number="51" aria-label="Slide 51">
+    <p class="kicker">Question 6</p>
+    <h2>Normal Distribution and Shelf Design</h2>
+    <p class="lead">We convert book heights to z-scores, use percentiles, then translate the result into a design height.</p>
+  </section>
+
+  <section class="slide" data-number="52" aria-label="Slide 52">
+    <p class="kicker">Q6 - The Problem</p>
+    <h2>Book Heights</h2>
+    <p>The height <span class="math">H</span> of books is modelled by a normal distribution:</p>
+    <p class="formula">H ~ N(25.1, 5.5^2)</p>
+    <div class="grid">
+      <div class="panel sky">
+        <h3>Mean</h3>
+        <p><span class="math">25.1 cm</span>. The centre of the normal model.</p>
+      </div>
+      <div class="panel mint">
+        <h3>Standard deviation</h3>
+        <p><span class="math">5.5 cm</span>. Typical spread away from the mean.</p>
+      </div>
+    </div>
+    <div class="callout">Xiang excludes the smallest 5% of books and all books taller than 30.8 cm.</div>
+  </section>
+
+  <section class="slide" data-number="53" aria-label="Slide 53">
+    <p class="kicker">Q6 - Definitions</p>
+    <h2>Normal Distribution Tools</h2>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Normal distribution</h3>
+        <p>A bell-shaped continuous model, symmetric about the mean.</p>
+      </div>
+      <div class="panel sky">
+        <h3>z-score</h3>
+        <p>The number of standard deviations a value is from the mean.</p>
+        <p class="formula">z = (x - mean) / sd</p>
+      </div>
+      <div class="panel peach">
+        <h3>Percentile</h3>
+        <p>A cutoff with a given percentage below it. The 5th percentile has 5% below.</p>
+      </div>
+      <div class="panel lavender">
+        <h3>Tail probability</h3>
+        <p>A probability in one end of the normal curve, such as <span class="math">P(H &gt; 30.8)</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="54" aria-label="Slide 54">
+    <p class="kicker">Q6 - Approach</p>
+    <h2>General Strategy</h2>
+    <ol class="steps">
+      <li>Standardise heights using <span class="math">z = (x - 25.1)/5.5</span>.</li>
+      <li>Use normal tables or calculator values for probabilities.</li>
+      <li>Use inverse normal values for percentile cutoffs.</li>
+      <li>Translate ratios 2 : 3 : 3 into proportions of the placed books.</li>
+      <li>Convert the shelf categories into physical shelf heights.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="55" aria-label="Slide 55">
+    <p class="kicker">Q6(a)</p>
+    <h2>Showing P(H &gt; 30.8) = 0.15</h2>
+    <p>Standardise 30.8 cm:</p>
+    <p class="formula">z = (30.8 - 25.1) / 5.5 = 1.03636...</p>
+    <p>So:</p>
+    <p class="formula">P(H &gt; 30.8) = P(Z &gt; 1.03636...)</p>
+    <p>Using tables, <span class="math">Phi(1.04) = 0.8508</span>. This is the probability to the left.</p>
+    <p class="formula">P(Z &gt; 1.04) = 1 - 0.8508 = 0.1492</p>
+    <div class="answer">Therefore <span class="math">P(H &gt; 30.8) = 0.15</span> to 2 significant figures.</div>
+  </section>
+
+  <section class="slide" data-number="56" aria-label="Slide 56">
+    <p class="kicker">Q6(b)</p>
+    <h2>Range of Heights Placed on Shelves</h2>
+    <p>Books taller than 30.8 cm are excluded. The smallest 5% are also excluded, so find the 5th percentile.</p>
+    <p>For the standard normal distribution:</p>
+    <p class="formula">P(Z &lt; -1.6449) = 0.05</p>
+    <p>Set up the standardisation equation:</p>
+    <p class="formula">(y - 25.1) / 5.5 = -1.6449</p>
+    <p>Solve:</p>
+    <p class="formula">y = 25.1 + 5.5(-1.6449) = 16.053...</p>
+    <div class="answer">Placed book heights are approximately <span class="math">16.1 cm to 30.8 cm</span>.</div>
+  </section>
+
+  <section class="slide" data-number="57" aria-label="Slide 57">
+    <p class="kicker">Q6(c)(i)</p>
+    <h2>Showing d = 25.8</h2>
+    <p>Placed books make up 80% of all books, because 5% are too small and 15% are too tall.</p>
+    <p>The ratio small : medium : large is 2 : 3 : 3, total 8 parts.</p>
+    <p class="formula">small = 2/8 of placed = 0.20 of all books<br>medium = 3/8 of placed = 0.30 of all books<br>large = 3/8 of placed = 0.30 of all books</p>
+    <p>The upper boundary <span class="math">d</span> is after the bottom 5%, small 20%, and medium 30%:</p>
+    <p class="formula">P(H &lt; d) = 0.05 + 0.20 + 0.30 = 0.55</p>
+    <p>The z-value for 0.55 is about 0.126.</p>
+    <p class="formula">d = 25.1 + 5.5(0.126) = 25.79...</p>
+    <div class="answer">So <span class="math">d = 25.8 cm</span> to 1 decimal place.</div>
+  </section>
+
+  <section class="slide" data-number="58" aria-label="Slide 58">
+    <p class="kicker">Q6(c)(ii)</p>
+    <h2>Finding m</h2>
+    <p>The boundary <span class="math">m</span> is between small and medium books.</p>
+    <p>It comes after the bottom excluded 5% and the small placed 20%:</p>
+    <p class="formula">P(H &lt; m) = 0.05 + 0.20 = 0.25</p>
+    <p>The z-value for 0.25 is about <span class="math">-0.67449</span>.</p>
+    <p class="formula">(m - 25.1) / 5.5 = -0.67449</p>
+    <p>Solve:</p>
+    <p class="formula">m = 25.1 + 5.5(-0.67449) = 21.390...</p>
+    <div class="answer">Answer: <span class="math">m = 21.4 cm</span> to 3 significant figures.</div>
+  </section>
+
+  <section class="slide" data-number="59" aria-label="Slide 59">
+    <p class="kicker">Q6 Visual</p>
+    <h2>How the Normal Curve Is Split</h2>
+    <div class="chart-card">
+      <svg viewBox="0 0 900 330" role="img" aria-label="Normal curve regions">
+        <line x1="80" y1="260" x2="820" y2="260" stroke="#69778d" stroke-width="3" />
+        <path d="M90 260 C180 260, 200 80, 350 80 C500 80, 520 260, 810 260" fill="none" stroke="#5f8edb" stroke-width="5" />
+        <path d="M90 260 C120 260, 150 230, 185 190 L185 260 Z" fill="#ffdfe7" opacity="0.95" />
+        <path d="M185 260 L185 190 C225 125, 275 90, 350 80 C410 82, 460 105, 505 155 L505 260 Z" fill="#dff4ea" opacity="0.85" />
+        <path d="M505 260 L505 155 C540 190, 565 230, 590 260 Z" fill="#fff4bf" opacity="0.95" />
+        <path d="M590 260 C620 258, 665 260, 810 260 L590 260 Z" fill="#ffe5d7" opacity="0.95" />
+        <g stroke="#273244" stroke-width="2">
+          <line x1="185" y1="70" x2="185" y2="260" /><line x1="350" y1="55" x2="350" y2="260" /><line x1="505" y1="70" x2="505" y2="260" /><line x1="590" y1="95" x2="590" y2="260" />
+        </g>
+        <g fill="#273244" font-size="18" text-anchor="middle">
+          <text x="185" y="292">16.1</text><text x="350" y="292">25.1</text><text x="505" y="292">25.8</text><text x="590" y="292">30.8</text>
+          <text x="130" y="150">5%</text><text x="315" y="132">small + medium</text><text x="545" y="158">large</text><text x="692" y="150">15%</text>
+        </g>
+      </svg>
+    </div>
+    <p class="caption small">The diagram is a concept sketch: it shows the probability regions, not exact scale.</p>
+  </section>
+
+  <section class="slide" data-number="60" aria-label="Slide 60">
+    <p class="kicker">Q6(d)</p>
+    <h2>Minimum Total Height for Shelves</h2>
+    <p>The shelves are planned as:</p>
+    <ul>
+      <li>2 shelves for small books, each needs height <span class="math">m = 21.4</span></li>
+      <li>3 shelves for medium books, each needs height <span class="math">d = 25.8</span></li>
+      <li>3 shelves for large books, each needs height <span class="math">30.8</span></li>
+      <li>Wood thickness: 1 cm per shelf layer, total 8 cm in the mark scheme model.</li>
+    </ul>
+    <p class="formula">height = 2(21.4) + 3(25.8) + 3(30.8) + 8<br>height = 42.8 + 77.4 + 92.4 + 8 = 220.6</p>
+    <div class="answer">Minimum total height needed: <span class="math">221 cm</span> to the nearest cm.</div>
+  </section>
+
+  <section class="slide" data-number="61" aria-label="Slide 61">
+    <p class="kicker">Q6 Answers</p>
+    <h2>Final Answers and Notes</h2>
+    <div class="grid">
+      <div class="panel answer">
+        <ul>
+          <li>(a) <span class="math">P(H &gt; 30.8) = 0.1492... = 0.15</span></li>
+          <li>(b) Range: about <span class="math">16.1 cm to 30.8 cm</span></li>
+          <li>(c)(i) <span class="math">d = 25.8 cm</span></li>
+          <li>(c)(ii) <span class="math">m = 21.4 cm</span></li>
+          <li>(d) Minimum total height: <span class="math">221 cm</span></li>
+        </ul>
+      </div>
+      <div class="panel lemon">
+        <h3>Useful note</h3>
+        <p>Ratios in a restricted group must be converted into probabilities for the whole distribution before using normal tables.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="62" aria-label="Slide 62">
+    <p class="kicker">Exam Technique</p>
+    <h2>Common Mistakes in This Paper</h2>
+    <ul>
+      <li>Testing independence using <span class="math">P(A) = P(B)</span> instead of <span class="math">P(A and B) = P(A)P(B)</span>.</li>
+      <li>Forgetting that <span class="math">p</span> in Question 2 is measured in hundreds of dollars.</li>
+      <li>Using outliers as whisker endpoints in a box plot.</li>
+      <li>Adding tree path probabilities before multiplying branches.</li>
+      <li>Forgetting to combine probabilities when different Y values give the same D value.</li>
+      <li>Using 0.80 directly as a cumulative probability for a normal boundary in Question 6.</li>
+    </ul>
+  </section>
+
+  <section class="slide" data-number="63" aria-label="Slide 63">
+    <p class="kicker">Formula Summary</p>
+    <h2>Core Formulas From the Paper</h2>
+    <table class="tight">
+      <thead><tr><th>Topic</th><th>Formula</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td>Conditional probability</td><td class="math">P(A | B) = P(A and B) / P(B)</td><td>Q1, Q4</td></tr>
+        <tr><td>Independence</td><td class="math">P(A and B) = P(A)P(B)</td><td>Q1</td></tr>
+        <tr><td>PMCC</td><td class="math">r = Sxy / sqrt(Sxx Syy)</td><td>Q2</td></tr>
+        <tr><td>Regression gradient</td><td class="math">b = Sxy / Sxx</td><td>Q2</td></tr>
+        <tr><td>IQR</td><td class="math">IQR = Q3 - Q1</td><td>Q3</td></tr>
+        <tr><td>Expected value</td><td class="math">E(X) = sum x P(X=x)</td><td>Q4, Q5</td></tr>
+        <tr><td>Variance</td><td class="math">Var(X) = E(X^2) - [E(X)]^2</td><td>Q5</td></tr>
+        <tr><td>Normal standardisation</td><td class="math">z = (x - mean) / sd</td><td>Q6</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide" data-number="64" aria-label="Slide 64">
+    <p class="kicker">Student Practice</p>
+    <h2>What to Practise After This Paper</h2>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Accuracy practice</h3>
+        <ul>
+          <li>Counting positions for quartiles.</li>
+          <li>Maintaining exact fractions in tree diagrams.</li>
+          <li>Rounding only at the end.</li>
+        </ul>
+      </div>
+      <div class="panel sky">
+        <h3>Explanation practice</h3>
+        <ul>
+          <li>Interpreting gradients in context.</li>
+          <li>Comparing box plots with named statistics.</li>
+          <li>Justifying normal distribution boundaries.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="65" aria-label="Slide 65">
+    <p class="kicker">Quick Review</p>
+    <h2>One Sentence Per Question</h2>
+    <ol>
+      <li>Venn diagrams are solved by adding regions, then applying probability definitions.</li>
+      <li>Regression uses corrected sums to measure and model a linear relationship.</li>
+      <li>Box plots summarise centre, spread, and outliers.</li>
+      <li>Tree diagrams require multiplying along paths and adding separate cases.</li>
+      <li>Random variable transformations require combining probabilities that lead to the same new value.</li>
+      <li>Normal distribution questions are mostly about standardising and interpreting areas.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="66" aria-label="Slide 66">
+    <p class="kicker">Answer Sheet</p>
+    <h2>All Final Answers</h2>
+    <table class="tight">
+      <thead><tr><th>Question</th><th>Answers</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><span class="math">P(B)=0.5</span>; not independent; <span class="math">p=0.06, q=0.14</span>; D overlaps B but not A.</td></tr>
+        <tr><td>2</td><td><span class="math">Sxp=231.25</span>; <span class="math">r=0.959</span>; <span class="math">p=10.7+1.56x</span>; gradient about $156; saving about 36%.</td></tr>
+        <tr><td>3</td><td>Median 53; IQR 16; outliers 13, 87, 88; female median 67 &gt; male median 53; granddaughter 34 to 56; Anja 90 to 93.</td></tr>
+        <tr><td>4</td><td><span class="math">P(2Y)=1/10</span>; conditional probability <span class="math">1/6</span>; distribution <span class="math">8/15, 7/20, 1/10, 1/60</span>; <span class="math">E(X)=0.6</span>.</td></tr>
+        <tr><td>5</td><td><span class="math">E(Y)=0</span>; <span class="math">u=4/15</span>; <span class="math">q=1/6, r=1/5</span>; D distribution: <span class="math">12:4/15, 13:6/15 or 2/5, 15:5/15 or 1/3</span>.</td></tr>
+        <tr><td>6</td><td><span class="math">P(H&gt;30.8)=0.15</span>; range 16.1 to 30.8 cm; <span class="math">d=25.8</span>; <span class="math">m=21.4</span>; total height 221 cm.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide" data-number="67" aria-label="Slide 67">
+    <p class="kicker">Exit Questions</p>
+    <h2>Check Understanding</h2>
+    <ol>
+      <li>What does it mean for two events to be independent?</li>
+      <li>Why is the PMCC close to 1 in Question 2?</li>
+      <li>Why are 87 and 88 outliers in Question 3?</li>
+      <li>Why is <span class="math">P(RYY)</span> not the whole answer to "exactly two yellows"?</li>
+      <li>Why does <span class="math">Y=-5</span> and <span class="math">Y=5</span> give the same distance D?</li>
+      <li>Why do we use <span class="math">P(H&lt;d)=0.55</span> in Question 6?</li>
+    </ol>
+  </section>
+
+  <section class="slide center" data-number="68" aria-label="Slide 68">
+    <p class="kicker">End</p>
+    <h2>The Paper Is a Modelling Paper</h2>
+    <p class="lead">The calculations matter, but the marks also reward clear definitions, correct context, and careful interpretation.</p>
+  </section>
+</main>
+
+<script>
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const counter = document.getElementById("counter");
+  let current = 0;
+
+  function setCurrent(index) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+    counter.textContent = `Slide ${current + 1} / ${slides.length}`;
+  }
+
+  function go(delta) {
+    setCurrent(current + delta);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight" || event.key === "PageDown") go(1);
+    if (event.key === "ArrowLeft" || event.key === "PageUp") go(-1);
+    if (event.key === "Home") setCurrent(0);
+    if (event.key === "End") setCurrent(slides.length - 1);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!visible) return;
+    current = slides.indexOf(visible.target);
+    counter.textContent = `Slide ${current + 1} / ${slides.length}`;
+  }, { threshold: [0.55] });
+
+  slides.forEach((slide) => observer.observe(slide));
+</script>
+</body>
+</html>
