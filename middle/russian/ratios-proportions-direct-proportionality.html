@@ -1,0 +1,1356 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Отношения, пропорции, прямая и обратная пропорциональность</title>
+<style>
+  :root {
+    --paper: #fffdf8;
+    --ink: #263244;
+    --muted: #657289;
+    --line: #d9e2ec;
+    --mint: #e3f5eb;
+    --sky: #e5f0ff;
+    --peach: #ffe9dc;
+    --lemon: #fff5c9;
+    --lilac: #eee9ff;
+    --rose: #ffe2eb;
+    --blue: #4f7fd4;
+    --teal: #2c9a92;
+    --gold: #dca53a;
+    --coral: #db6d7a;
+    --purple: #7d69bf;
+    --green: #4f9d69;
+    --shadow: 0 18px 46px rgba(42, 56, 80, 0.15);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    color: var(--ink);
+    background: linear-gradient(135deg, #f8f3ea 0%, #edf7f4 42%, #f2f1fb 100%);
+    font-family: "Segoe UI", Inter, system-ui, -apple-system, sans-serif;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.91);
+    border-bottom: 1px solid rgba(38, 50, 68, 0.13);
+    backdrop-filter: blur(12px);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    letter-spacing: 0;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  button {
+    border: 0;
+    border-radius: 6px;
+    padding: 9px 13px;
+    background: var(--blue);
+    color: white;
+    font: inherit;
+    font-weight: 750;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(79, 127, 212, 0.25);
+  }
+
+  button.secondary {
+    background: #3e4f67;
+    box-shadow: 0 5px 15px rgba(62, 79, 103, 0.22);
+  }
+
+  .counter {
+    min-width: 94px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 14px;
+  }
+
+  main {
+    width: min(1210px, 96vw);
+    margin: 28px auto 64px;
+  }
+
+  .slide {
+    min-height: 690px;
+    margin: 0 auto 36px;
+    padding: 52px;
+    position: relative;
+    overflow: hidden;
+    scroll-margin-top: 92px;
+    background: var(--paper);
+    border: 1px solid rgba(38, 50, 68, 0.09);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+
+  .slide::before {
+    content: "github.com://dzh-a-v";
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    color: rgba(38, 50, 68, 0.34);
+    font-size: 13px;
+    font-weight: 750;
+    letter-spacing: 0;
+  }
+
+  .slide::after {
+    content: attr(data-number);
+    position: absolute;
+    right: 28px;
+    bottom: 22px;
+    color: #9aa7b8;
+    font-size: 14px;
+  }
+
+  .center {
+    display: grid;
+    place-content: center;
+    text-align: center;
+  }
+
+  .kicker {
+    margin: 0 0 12px;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 14px;
+    font-weight: 850;
+  }
+
+  h2 {
+    margin: 0 0 22px;
+    font-size: clamp(31px, 4.6vw, 56px);
+    line-height: 1.08;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    margin: 0 0 12px;
+    font-size: 25px;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  p, li {
+    font-size: 22px;
+    line-height: 1.42;
+  }
+
+  p { margin: 0 0 15px; }
+
+  ul, ol {
+    margin: 0;
+    padding-left: 30px;
+  }
+
+  li + li { margin-top: 8px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    font-size: 20px;
+  }
+
+  th, td {
+    border: 1px solid var(--line);
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th { background: #eaf4fb; }
+
+  .lead {
+    max-width: 930px;
+    color: #41516a;
+    font-size: 30px;
+  }
+
+  .small {
+    color: var(--muted);
+    font-size: 18px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .grid.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid.four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .panel {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+  }
+
+  .mint { background: var(--mint); }
+  .sky { background: var(--sky); }
+  .peach { background: var(--peach); }
+  .lemon { background: var(--lemon); }
+  .lilac { background: var(--lilac); }
+  .rose { background: var(--rose); }
+
+  .callout {
+    margin-top: 20px;
+    padding: 18px 22px;
+    border-left: 8px solid var(--blue);
+    border-radius: 6px;
+    background: #eef5ff;
+    font-size: 22px;
+  }
+
+  .answer {
+    border-left-color: var(--green);
+    background: #edf8f1;
+    font-weight: 750;
+  }
+
+  .warning {
+    border-left-color: var(--coral);
+    background: #fff1f4;
+  }
+
+  .formula {
+    display: block;
+    margin: 10px 0;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: #fff7d5;
+    border: 1px solid #ead991;
+    font-family: "Cascadia Mono", Consolas, monospace;
+    font-size: 21px;
+    line-height: 1.5;
+  }
+
+  .math {
+    font-family: "Cascadia Mono", Consolas, monospace;
+    font-size: 0.95em;
+  }
+
+  .frac {
+    display: inline-grid;
+    grid-template-rows: auto auto;
+    place-items: center;
+    vertical-align: middle;
+    line-height: 1.05;
+    margin: 0 0.08em;
+  }
+
+  .frac .num {
+    width: 100%;
+    padding: 0 0.22em 0.1em;
+    border-bottom: 2px solid currentColor;
+    text-align: center;
+  }
+
+  .frac .den {
+    width: 100%;
+    padding: 0.12em 0.22em 0;
+    text-align: center;
+  }
+
+  .steps {
+    counter-reset: step;
+    display: grid;
+    gap: 12px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .steps li {
+    position: relative;
+    min-height: 52px;
+    padding: 12px 16px 12px 58px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: white;
+  }
+
+  .steps li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 14px;
+    top: 13px;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--lilac);
+    color: #453e74;
+    font-weight: 850;
+  }
+
+  .chart-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .ratio-strip {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .ratio-cell {
+    min-height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 6px;
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .blue-cell { background: #d9e8ff; color: #254f99; }
+  .gold-cell { background: #fff0bd; color: #916615; }
+  .green-cell { background: #ddf3e7; color: #2d7149; }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #edf5fb;
+    border: 1px solid #cad9ea;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .question {
+    margin-top: 20px;
+    padding: 18px 20px;
+    border: 2px dashed #96a5b8;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.68);
+    font-size: 24px;
+    font-weight: 750;
+  }
+
+  .answer-space {
+    min-height: 116px;
+    margin-top: 14px;
+    border-radius: 8px;
+    background:
+      repeating-linear-gradient(white 0, white 32px, #dbe3ec 33px);
+    border: 1px solid var(--line);
+  }
+
+  .tight p, .tight li, .tight td, .tight th {
+    font-size: 19px;
+  }
+
+  .wide { grid-column: 1 / -1; }
+
+  svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 840px) {
+    header { align-items: flex-start; }
+    .slide { min-height: auto; padding: 34px 22px; }
+    .slide::before { right: 18px; top: 12px; font-size: 11px; }
+    .grid, .grid.three, .grid.four { grid-template-columns: 1fr; }
+    .ratio-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    p, li, table { font-size: 19px; }
+    .lead { font-size: 24px; }
+  }
+
+  @media print {
+    header { display: none; }
+    body { background: white; }
+    main { width: 100%; margin: 0; }
+    .slide {
+      min-height: 100vh;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      page-break-after: always;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Отношения, пропорции, прямая и обратная пропорциональность</h1>
+  <div class="controls">
+    <button type="button" onclick="go(-1)">Назад</button>
+    <span class="counter" id="counter">Слайд 1 / 45</span>
+    <button type="button" onclick="go(1)">Вперёд</button>
+    <button type="button" class="secondary" onclick="window.print()">Печать / PDF</button>
+  </div>
+</header>
+
+<main>
+  <section class="slide center" data-number="1" aria-label="Слайд 1">
+    <p class="kicker">Математика</p>
+    <h2>Отношения. Пропорции. Прямая и обратная пропорциональность</h2>
+  </section>
+
+  <section class="slide" data-number="2" aria-label="Слайд 2">
+    <p class="kicker">Цели урока</p>
+    <h2>Что нужно уметь после урока</h2>
+    <ul>
+      <li>Понимать, что такое отношение двух величин и как его записывать.</li>
+      <li>Сокращать отношения и находить эквивалентные отношения.</li>
+      <li>Составлять и решать пропорции.</li>
+      <li>Использовать правило крест-накрест.</li>
+      <li>Распознавать прямую и обратную пропорциональность по таблице, формуле и графику.</li>
+      <li>Отличать прямую и обратную пропорциональность в текстовых задачах.</li>
+    </ul>
+    <div class="callout">Главная идея: если все пары величин меняются в одном и том же масштабе, то их связь можно описать через постоянное отношение.</div>
+  </section>
+
+  <section class="slide" data-number="3" aria-label="Слайд 3">
+    <p class="kicker">Разогрев</p>
+    <h2>Где это встречается?</h2>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Рецепты</h3>
+        <p>Если на 2 стакана муки нужен 1 стакан молока, то на 4 стакана муки понадобится 2 стакана молока.</p>
+      </div>
+      <div class="panel sky">
+        <h3>Цена</h3>
+        <p>Если 1 тетрадь стоит 45 рублей, то 6 таких тетрадей стоят <span class="math">6 · 45</span> рублей.</p>
+      </div>
+      <div class="panel peach">
+        <h3>Карта</h3>
+        <p>Масштаб связывает расстояние на карте и настоящее расстояние.</p>
+      </div>
+      <div class="panel lilac">
+        <h3>Скорость</h3>
+        <p>При постоянной скорости расстояние прямо пропорционально времени.</p>
+      </div>
+    </div>
+    <div class="question">Какая из этих ситуаций ближе всего к твоей жизни? Почему?</div>
+  </section>
+
+  <section class="slide" data-number="4" aria-label="Слайд 4">
+    <p class="kicker">Определение</p>
+    <h2>Что такое отношение?</h2>
+    <p><strong>Отношение</strong> двух величин показывает, во сколько раз одна величина больше или меньше другой, или сколько частей одного вида приходится на части другого вида.</p>
+    <div class="grid">
+      <div class="panel lemon">
+        <h3>Записи одного смысла</h3>
+        <p class="formula">a : b</p>
+        <p class="formula"><span class="frac"><span class="num">a</span><span class="den">b</span></span></p>
+        <p class="formula">a к b</p>
+      </div>
+      <div class="panel">
+        <h3>Пример</h3>
+        <p>В коробке 6 синих и 4 жёлтых карандаша.</p>
+        <p class="formula">синие : жёлтые = 6 : 4 = 3 : 2</p>
+        <p>Это значит: на каждые 3 синих карандаша приходится 2 жёлтых.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="5" aria-label="Слайд 5">
+    <p class="kicker">Визуально</p>
+    <h2>Отношение как части</h2>
+    <p>Отношение <span class="math">3 : 2</span> можно увидеть как 3 равные части одного цвета и 2 равные части другого цвета.</p>
+    <div class="ratio-strip" aria-label="Отношение 3 к 2">
+      <div class="ratio-cell blue-cell">1</div>
+      <div class="ratio-cell blue-cell">2</div>
+      <div class="ratio-cell blue-cell">3</div>
+      <div class="ratio-cell gold-cell">1</div>
+      <div class="ratio-cell gold-cell">2</div>
+    </div>
+    <div class="callout">Важно: <span class="math">3 : 2</span> и <span class="math">2 : 3</span> обычно означают разные ситуации. Порядок в отношении имеет значение.</div>
+  </section>
+
+  <section class="slide" data-number="6" aria-label="Слайд 6">
+    <p class="kicker">Единицы измерения</p>
+    <h2>Сравнивай одинаковые единицы</h2>
+    <p>Если величины имеют единицы измерения, сначала приведи их к одним единицам.</p>
+    <div class="grid">
+      <div class="panel rose">
+        <h3>Неполная запись</h3>
+        <p class="formula">2 м : 50 см</p>
+        <p>Так сокращать рано: метры и сантиметры разные.</p>
+      </div>
+      <div class="panel mint">
+        <h3>Правильный ход</h3>
+        <p class="formula">2 м = 200 см</p>
+        <p class="formula">200 см : 50 см = 200 : 50 = 4 : 1</p>
+      </div>
+    </div>
+    <div class="question">Найди отношение <span class="math">1,5 кг : 300 г</span>.</div>
+  </section>
+
+  <section class="slide" data-number="7" aria-label="Слайд 7">
+    <p class="kicker">Сокращение</p>
+    <h2>Как упростить отношение</h2>
+    <p>Отношение можно сокращать так же, как дробь: разделить обе части на один и тот же ненулевой множитель.</p>
+    <ol class="steps">
+      <li>Найди общий делитель обеих частей.</li>
+      <li>Раздели каждую часть на этот общий делитель.</li>
+      <li>Проверь: обе части должны уменьшиться в одинаковое число раз.</li>
+    </ol>
+    <p class="formula">12 : 18 = (12 ÷ 6) : (18 ÷ 6) = 2 : 3</p>
+    <div class="callout">Если обе части умножить или разделить на одно и то же число, отношение останется эквивалентным.</div>
+  </section>
+
+  <section class="slide" data-number="8" aria-label="Слайд 8">
+    <p class="kicker">Преобразования</p>
+    <h2>Как получить эквивалентное отношение</h2>
+    <p><strong>Эквивалентные отношения</strong> описывают одно и то же сравнение, но записаны другими числами.</p>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Увеличить отношение</h3>
+        <p>Умножь обе части на одно и то же число.</p>
+        <p class="formula">1 : 2 = (1 · 6) : (2 · 6) = 6 : 12</p>
+        <p>Смысл не изменился: на 1 часть первого вида приходится 2 части второго вида.</p>
+      </div>
+      <div class="panel lemon">
+        <h3>Упростить отношение</h3>
+        <p>Раздели обе части на общий делитель.</p>
+        <p class="formula">18 : 24 = (18 ÷ 6) : (24 ÷ 6) = 3 : 4</p>
+        <p>Это то же сравнение, записанное меньшими числами.</p>
+      </div>
+    </div>
+    <p class="formula">a : b = (a · m) : (b · m), где m ≠ 0</p>
+    <div class="callout warning">Нельзя менять только одну часть. Например, <span class="math">1 : 2</span> и <span class="math">6 : 2</span> не эквивалентны.</div>
+  </section>
+
+  <section class="slide" data-number="9" aria-label="Слайд 9">
+    <p class="kicker">Эквивалентность</p>
+    <h2>Разные записи одного отношения</h2>
+    <table>
+      <thead>
+        <tr><th>Отношение</th><th>Что сделали?</th><th>Эквивалентно ли <span class="math">2 : 5</span>?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="math">4 : 10</span></td><td>умножили обе части на 2</td><td>да</td></tr>
+        <tr><td><span class="math">6 : 15</span></td><td>умножили обе части на 3</td><td>да</td></tr>
+        <tr><td><span class="math">20 : 50</span></td><td>умножили обе части на 10</td><td>да</td></tr>
+        <tr><td><span class="math">3 : 5</span></td><td>изменилась только первая часть</td><td>нет</td></tr>
+      </tbody>
+    </table>
+    <div class="question">Запиши три отношения, эквивалентные <span class="math">7 : 4</span>.</div>
+  </section>
+
+  <section class="slide" data-number="10" aria-label="Слайд 10">
+    <p class="kicker">Сцепленные отношения</p>
+    <h2>Как объединить два отношения</h2>
+    <p><strong>Сцепленные отношения</strong> - это отношения, у которых есть общая величина. Чтобы объединить их, нужно сделать значение общей величины одинаковым.</p>
+    <div class="grid">
+      <div class="panel sky">
+        <h3>Задача</h3>
+        <p class="formula">a : b = 1 : 2</p>
+        <p class="formula">b : c = 5 : 3</p>
+        <p>Найти <span class="math">a : b : c</span>.</p>
+      </div>
+      <div class="panel mint">
+        <h3>Идея</h3>
+        <p>Буква <span class="math">b</span> встречается в обоих отношениях, но сначала она равна 2 частям, а потом 5 частям.</p>
+        <p>Сделаем <span class="math">b</span> одинаковой: удобное общее число для 2 и 5 - это 10.</p>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><span class="math">a : b = 1 : 2</span>. Чтобы <span class="math">b</span> стало 10, умножаем обе части на 5: <span class="math">a : b = 5 : 10</span>.</li>
+      <li><span class="math">b : c = 5 : 3</span>. Чтобы <span class="math">b</span> стало 10, умножаем обе части на 2: <span class="math">b : c = 10 : 6</span>.</li>
+      <li>Теперь общая величина совпадает, значит можно объединить: <span class="math">a : b : c = 5 : 10 : 6</span>.</li>
+    </ol>
+    <div class="callout warning">Не склеивай числа как <span class="math">1 : 2 : 5 : 3</span>. Сначала нужно выровнять общую букву.</div>
+    <div class="question">Попробуй: если <span class="math">x : y = 3 : 4</span> и <span class="math">y : z = 6 : 5</span>, чему равно <span class="math">x : y : z</span>?</div>
+  </section>
+
+  <section class="slide" data-number="11" aria-label="Слайд 11">
+    <p class="kicker">Части и целое</p>
+    <h2>Отношение не всегда похоже на проценты</h2>
+    <p>Если отношение красных к синим равно <span class="math">3 : 2</span>, то всего частей не 3 и не 2, а <span class="math">3 + 2 = 5</span>.</p>
+    <div class="grid">
+      <div class="panel">
+        <h3>Доля красных</h3>
+        <p class="formula"><span class="frac"><span class="num">3</span><span class="den">3 + 2</span></span> = <span class="frac"><span class="num">3</span><span class="den">5</span></span></p>
+        <p>Красные составляют 3 части из 5.</p>
+      </div>
+      <div class="panel">
+        <h3>Доля синих</h3>
+        <p class="formula"><span class="frac"><span class="num">2</span><span class="den">3 + 2</span></span> = <span class="frac"><span class="num">2</span><span class="den">5</span></span></p>
+        <p>Синие составляют 2 части из 5.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="12" aria-label="Слайд 12">
+    <p class="kicker">Пример</p>
+    <h2>Деление суммы в заданном отношении</h2>
+    <p>Нужно разделить 420 рублей между Аней и Борисом в отношении <span class="math">2 : 5</span>.</p>
+    <ol class="steps">
+      <li>Всего частей: <span class="math">2 + 5 = 7</span>.</li>
+      <li>Одна часть: <span class="math">420 ÷ 7 = 60</span> рублей.</li>
+      <li>Аня получает <span class="math">2 · 60 = 120</span> рублей.</li>
+      <li>Борис получает <span class="math">5 · 60 = 300</span> рублей.</li>
+    </ol>
+    <div class="answer callout">Проверка: <span class="math">120 + 300 = 420</span>, а <span class="math">120 : 300 = 2 : 5</span>.</div>
+  </section>
+
+  <section class="slide" data-number="13" aria-label="Слайд 13">
+    <p class="kicker">Практика</p>
+    <h2>Отношения</h2>
+    <ol>
+      <li>Сократи отношение <span class="math">24 : 36</span>.</li>
+      <li>Найди отношение <span class="math">90 см : 1,2 м</span> в простейшем виде.</li>
+      <li>Раздели 180 конфет в отношении <span class="math">4 : 5</span>.</li>
+      <li>В классе 12 девочек и 16 мальчиков. Найди отношение девочек к мальчикам и девочек ко всем ученикам.</li>
+    </ol>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide center lilac" data-number="14" aria-label="Слайд 14">
+    <p class="kicker">Переход</p>
+    <h2>Пропорция - это равенство двух отношений</h2>
+    <p class="lead">Когда две дроби или два отношения равны, мы можем использовать это равенство, чтобы находить неизвестные величины.</p>
+  </section>
+
+  <section class="slide" data-number="15" aria-label="Слайд 15">
+    <p class="kicker">Определение</p>
+    <h2>Что такое пропорция?</h2>
+    <p><strong>Пропорция</strong> - это равенство двух отношений.</p>
+    <p class="formula">a : b = c : d</p>
+    <p>То же самое можно записать дробями:</p>
+    <p class="formula"><span class="frac"><span class="num">a</span><span class="den">b</span></span> = <span class="frac"><span class="num">c</span><span class="den">d</span></span>, где b ≠ 0 и d ≠ 0</p>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Пример пропорции</h3>
+        <p class="formula">2 : 3 = 8 : 12</p>
+        <p>Обе части сокращаются к <span class="math">2 : 3</span>.</p>
+      </div>
+      <div class="panel rose">
+        <h3>Не пропорция</h3>
+        <p class="formula">2 : 3 ≠ 8 : 10</p>
+        <p><span class="math">8 : 10 = 4 : 5</span>, это другое отношение.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="16" aria-label="Слайд 16">
+    <p class="kicker">Свойство</p>
+    <h2>Правило крест-накрест</h2>
+    <p>Если две дроби равны, то произведения по диагоналям равны.</p>
+    <p class="formula"><span class="frac"><span class="num">a</span><span class="den">b</span></span> = <span class="frac"><span class="num">c</span><span class="den">d</span></span>  =>  a · d = b · c</p>
+    <div class="chart-card">
+      <svg viewBox="0 0 900 270" role="img" aria-label="Правило крест-накрест">
+        <rect x="40" y="25" width="820" height="220" rx="8" fill="#fffdf8" stroke="#d9e2ec" stroke-width="2" />
+        <text x="200" y="118" text-anchor="middle" font-size="54" font-family="Consolas, monospace" fill="#263244">a</text>
+        <line x1="150" y1="140" x2="250" y2="140" stroke="#263244" stroke-width="4" />
+        <text x="200" y="205" text-anchor="middle" font-size="54" font-family="Consolas, monospace" fill="#263244">b</text>
+        <text x="345" y="163" text-anchor="middle" font-size="54" font-family="Consolas, monospace" fill="#263244">=</text>
+        <text x="500" y="118" text-anchor="middle" font-size="54" font-family="Consolas, monospace" fill="#263244">c</text>
+        <line x1="450" y1="140" x2="550" y2="140" stroke="#263244" stroke-width="4" />
+        <text x="500" y="205" text-anchor="middle" font-size="54" font-family="Consolas, monospace" fill="#263244">d</text>
+        <line x1="195" y1="98" x2="505" y2="203" stroke="#db6d7a" stroke-width="7" stroke-linecap="round" />
+        <line x1="205" y1="203" x2="495" y2="98" stroke="#2c9a92" stroke-width="7" stroke-linecap="round" />
+        <text x="705" y="128" text-anchor="middle" font-size="30" font-weight="800" fill="#db6d7a">a · d</text>
+        <text x="705" y="180" text-anchor="middle" font-size="30" font-weight="800" fill="#2c9a92">b · c</text>
+      </svg>
+    </div>
+    <div class="callout">Это правило работает только для равенства двух дробей. Оно не означает, что можно перемножать любые числа в задаче.</div>
+  </section>
+
+  <section class="slide" data-number="17" aria-label="Слайд 17">
+    <p class="kicker">Пример</p>
+    <h2>Решение пропорции</h2>
+    <p>Найти <span class="math">x</span>:</p>
+    <p class="formula"><span class="frac"><span class="num">3</span><span class="den">5</span></span> = <span class="frac"><span class="num">x</span><span class="den">20</span></span></p>
+    <ol class="steps">
+      <li>Записываем произведения крест-накрест: <span class="math">3 · 20 = 5 · x</span>.</li>
+      <li>Считаем левую часть: <span class="math">60 = 5x</span>.</li>
+      <li>Делим обе части на 5: <span class="math">x = 12</span>.</li>
+    </ol>
+    <div class="answer callout">Проверка: <span class="math"><span class="frac"><span class="num">3</span><span class="den">5</span></span> = 0,6</span> и <span class="math"><span class="frac"><span class="num">12</span><span class="den">20</span></span> = 0,6</span>. Значит, пропорция верна.</div>
+  </section>
+
+  <section class="slide" data-number="18" aria-label="Слайд 18">
+    <p class="kicker">Метод</p>
+    <h2>Три способа решить пропорцию</h2>
+    <div class="grid three tight">
+      <div class="panel mint">
+        <h3>Множитель</h3>
+        <p class="formula">4 : 7 = 12 : x</p>
+        <p>4 умножили на 3, значит 7 тоже умножаем на 3.</p>
+        <p class="formula">x = 21</p>
+      </div>
+      <div class="panel sky">
+        <h3>Крест-накрест</h3>
+        <p class="formula"><span class="frac"><span class="num">4</span><span class="den">7</span></span> = <span class="frac"><span class="num">12</span><span class="den">x</span></span></p>
+        <p class="formula">4x = 7 · 12</p>
+        <p class="formula">x = 21</p>
+      </div>
+      <div class="panel lemon">
+        <h3>Единица</h3>
+        <p>Если 4 части стоят 12, то 1 часть стоит 3.</p>
+        <p>Тогда 7 частей стоят:</p>
+        <p class="formula">7 · 3 = 21</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="19" aria-label="Слайд 19">
+    <p class="kicker">Метод единицы</p>
+    <h2>Подробный гайд</h2>
+    <p><strong>Метод единицы</strong> означает: сначала найти, сколько приходится на одну часть, один предмет или одну единицу времени, а потом умножить на нужное количество.</p>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Когда использовать</h3>
+        <ul>
+          <li>Цена за 1 предмет.</li>
+          <li>Расстояние за 1 час.</li>
+          <li>Масса одной части смеси.</li>
+          <li>Любая задача, где величины прямо пропорциональны.</li>
+        </ul>
+      </div>
+      <div class="panel lemon">
+        <h3>Алгоритм</h3>
+        <ol>
+          <li>Определи, что известно для нескольких частей.</li>
+          <li>Раздели, чтобы найти 1 часть.</li>
+          <li>Умножь на нужное число частей.</li>
+          <li>Проверь, что ответ имеет правильные единицы.</li>
+        </ol>
+      </div>
+    </div>
+    <p>Пример: если 4 части стоят 12, то нужно найти стоимость 7 частей.</p>
+    <p class="formula">1 часть = 12 ÷ 4 = 3</p>
+    <p class="formula">7 частей = 7 · 3 = 21</p>
+    <div class="answer callout">Ответ: 7 частей стоят 21. Метод работает, потому что цена прямо пропорциональна количеству частей.</div>
+  </section>
+
+  <section class="slide" data-number="20" aria-label="Слайд 20">
+    <p class="kicker">Текстовая задача</p>
+    <h2>Рецепт</h2>
+    <p>Для 8 блинов нужно 300 мл молока. Сколько молока нужно для 20 таких же блинов?</p>
+    <div class="question">Попробуй решить эту задачу другими двумя способами. Поделись, какой из них тебе больше всего нравится и почему.</div>
+    <div class="grid">
+      <div class="panel">
+        <h3>Составим пропорцию</h3>
+        <p class="formula"><span class="frac"><span class="num">8 блинов</span><span class="den">300 мл</span></span> = <span class="frac"><span class="num">20 блинов</span><span class="den">x мл</span></span></p>
+      </div>
+      <div class="panel">
+        <h3>Решим</h3>
+        <p class="formula">8x = 300 · 20</p>
+        <p class="formula">8x = 6000</p>
+        <p class="formula">x = 750</p>
+      </div>
+    </div>
+    <div class="answer callout">Для 20 блинов нужно 750 мл молока, если рецепт масштабируется без изменения пропорций.</div>
+  </section>
+
+  <section class="slide" data-number="21" aria-label="Слайд 21">
+    <p class="kicker">Масштаб</p>
+    <h2>Пропорции на карте</h2>
+    <p>Масштаб <span class="math">1 : 50 000</span> означает: 1 см на карте соответствует 50 000 см на местности.</p>
+    <div class="grid">
+      <div class="panel sky">
+        <h3>Формула</h3>
+        <p class="formula">расстояние на местности = расстояние на карте · масштабный множитель</p>
+      </div>
+      <div class="panel">
+        <h3>Пример</h3>
+        <p>На карте расстояние 6 см.</p>
+        <p class="formula">6 · 50 000 = 300 000 см</p>
+        <p class="formula">300 000 см = 3 км</p>
+      </div>
+    </div>
+    <div class="question">Сколько километров на местности соответствуют 9 см на такой карте?</div>
+  </section>
+
+  <section class="slide" data-number="22" aria-label="Слайд 22">
+    <p class="kicker">Практика</p>
+    <h2>Пропорции</h2>
+    <ol>
+      <li>Реши: <span class="math"><span class="frac"><span class="num">5</span><span class="den">8</span></span> = <span class="frac"><span class="num">x</span><span class="den">24</span></span></span>.</li>
+      <li>Реши: <span class="math">7 : 12 = 21 : x</span>.</li>
+      <li>3 кг яблок стоят 270 рублей. Сколько стоят 8 кг?</li>
+      <li>За 4 часа поезд проехал 320 км. Сколько километров он проедет за 7 часов при той же скорости?</li>
+    </ol>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide center mint" data-number="23" aria-label="Слайд 23">
+    <p class="kicker">Новая идея</p>
+    <h2>Прямая пропорциональность</h2>
+    <p class="lead">Это связь, в которой одна величина увеличивается или уменьшается во столько же раз, во сколько другая.</p>
+  </section>
+
+  <section class="slide" data-number="24" aria-label="Слайд 24">
+    <p class="kicker">Определение</p>
+    <h2>Когда величины прямо пропорциональны?</h2>
+    <p>Величины <span class="math">x</span> и <span class="math">y</span> прямо пропорциональны, если их отношение постоянно:</p>
+    <p class="formula"><span class="frac"><span class="num">y</span><span class="den">x</span></span> = k</p>
+    <p>Число <span class="math">k</span> называется <strong>коэффициентом пропорциональности</strong>.</p>
+    <p>Та же связь записывается формулой:</p>
+    <p class="formula">y = kx</p>
+    <div class="callout">Если <span class="math">x</span> увеличили в 3 раза, то <span class="math">y</span> тоже увеличится в 3 раза. Если <span class="math">x = 0</span>, то <span class="math">y = 0</span>.</div>
+  </section>
+
+  <section class="slide" data-number="25" aria-label="Слайд 25">
+    <p class="kicker">Таблица</p>
+    <h2>Цена как прямая пропорциональность</h2>
+    <p>Одна ручка стоит 35 рублей. Общая стоимость прямо пропорциональна количеству ручек.</p>
+    <table>
+      <thead>
+        <tr><th>Количество ручек, <span class="math">x</span></th><th>Стоимость, <span class="math">y</span></th><th>Отношение <span class="math"><span class="frac"><span class="num">y</span><span class="den">x</span></span></span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>35</td><td>35</td></tr>
+        <tr><td>2</td><td>70</td><td>35</td></tr>
+        <tr><td>4</td><td>140</td><td>35</td></tr>
+        <tr><td>6</td><td>210</td><td>35</td></tr>
+      </tbody>
+    </table>
+    <div class="answer callout">
+      Здесь <span class="math">x</span> - количество ручек, а <span class="math">y</span> - общая стоимость. Отношение <span class="math"><span class="frac"><span class="num">y</span><span class="den">x</span></span></span> показывает цену одной ручки: <span class="math"><span class="frac"><span class="num">35</span><span class="den">1</span></span> = <span class="frac"><span class="num">70</span><span class="den">2</span></span> = <span class="frac"><span class="num">140</span><span class="den">4</span></span> = 35</span>. Поэтому <span class="math">k = 35</span>, и стоимость считается так: <span class="math">y = 35 · x</span>.
+    </div>
+  </section>
+
+  <section class="slide" data-number="26" aria-label="Слайд 26">
+    <p class="kicker">График</p>
+    <h2>График прямой пропорциональности</h2>
+    <div class="grid">
+      <div class="chart-card">
+        <svg viewBox="0 0 560 360" role="img" aria-label="График y = 2x">
+          <rect x="18" y="18" width="524" height="324" rx="8" fill="#ffffff" />
+          <line x1="70" y1="300" x2="510" y2="300" stroke="#657289" stroke-width="3" />
+          <line x1="70" y1="40" x2="70" y2="300" stroke="#657289" stroke-width="3" />
+          <g stroke="#e1e8f0" stroke-width="1">
+            <line x1="130" y1="40" x2="130" y2="300" />
+            <line x1="190" y1="40" x2="190" y2="300" />
+            <line x1="250" y1="40" x2="250" y2="300" />
+            <line x1="310" y1="40" x2="310" y2="300" />
+            <line x1="370" y1="40" x2="370" y2="300" />
+            <line x1="430" y1="40" x2="430" y2="300" />
+            <line x1="490" y1="40" x2="490" y2="300" />
+            <line x1="70" y1="248" x2="510" y2="248" />
+            <line x1="70" y1="196" x2="510" y2="196" />
+            <line x1="70" y1="144" x2="510" y2="144" />
+            <line x1="70" y1="92" x2="510" y2="92" />
+          </g>
+          <line x1="70" y1="300" x2="370" y2="40" stroke="#4f7fd4" stroke-width="6" stroke-linecap="round" />
+          <g fill="#db6d7a">
+            <circle cx="70" cy="300" r="7" />
+            <circle cx="130" cy="248" r="7" />
+            <circle cx="190" cy="196" r="7" />
+            <circle cx="250" cy="144" r="7" />
+            <circle cx="310" cy="92" r="7" />
+          </g>
+          <g fill="#263244" font-size="16" text-anchor="middle">
+            <text x="70" y="326">0</text>
+            <text x="130" y="326">1</text>
+            <text x="190" y="326">2</text>
+            <text x="250" y="326">3</text>
+            <text x="310" y="326">4</text>
+            <text x="500" y="326">x</text>
+            <text x="48" y="304">0</text>
+            <text x="44" y="252">2</text>
+            <text x="44" y="200">4</text>
+            <text x="44" y="148">6</text>
+            <text x="44" y="96">8</text>
+            <text x="44" y="48">y</text>
+          </g>
+        </svg>
+      </div>
+      <div class="panel">
+        <h3>Признаки графика</h3>
+        <ul>
+          <li>Это прямая линия.</li>
+          <li>Она проходит через начало координат <span class="math">(0; 0)</span>.</li>
+          <li>Чем больше <span class="math">k</span>, тем круче линия.</li>
+        </ul>
+        <p class="formula">y = 2x</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="27" aria-label="Слайд 27">
+    <p class="kicker">Как распознать</p>
+    <h2>Проверка по таблице</h2>
+    <p>Чтобы проверить прямую пропорциональность, найди отношение <span class="math"><span class="frac"><span class="num">y</span><span class="den">x</span></span></span> для каждой пары значений, где <span class="math">x ≠ 0</span>.</p>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Прямая пропорциональность</h3>
+        <table class="tight">
+          <tbody>
+            <tr><th>x</th><td>2</td><td>4</td><td>6</td></tr>
+            <tr><th>y</th><td>10</td><td>20</td><td>30</td></tr>
+            <tr><th><span class="frac"><span class="num">y</span><span class="den">x</span></span></th><td>5</td><td>5</td><td>5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel rose">
+        <h3>Не прямая пропорциональность</h3>
+        <table class="tight">
+          <tbody>
+            <tr><th>x</th><td>2</td><td>4</td><td>6</td></tr>
+            <tr><th>y</th><td>10</td><td>18</td><td>30</td></tr>
+            <tr><th><span class="frac"><span class="num">y</span><span class="den">x</span></span></th><td>5</td><td>4,5</td><td>5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="callout">Если отношение меняется, коэффициента <span class="math">k</span> одного для всех пар нет.</div>
+  </section>
+
+  <section class="slide" data-number="28" aria-label="Слайд 28">
+    <p class="kicker">Формула</p>
+    <h2>Как найти коэффициент <span class="math">k</span></h2>
+    <p>Если дана одна пара значений <span class="math">(x; y)</span> для прямой пропорциональности, то:</p>
+    <p class="formula">k = <span class="frac"><span class="num">y</span><span class="den">x</span></span></p>
+    <p>Пример: известно, что при <span class="math">x = 8</span> значение <span class="math">y = 56</span>.</p>
+    <p class="formula">k = <span class="frac"><span class="num">56</span><span class="den">8</span></span> = 7</p>
+    <p>Значит, формула связи:</p>
+    <p class="formula">y = 7x</p>
+    <div class="question">Если <span class="math">y</span> прямо пропорционально <span class="math">x</span> и при <span class="math">x = 9</span> получается <span class="math">y = 27</span>, чему равно <span class="math">k</span>?</div>
+  </section>
+
+  <section class="slide" data-number="29" aria-label="Слайд 29">
+    <p class="kicker">Сравнение</p>
+    <h2>Прямая пропорциональность или просто рост?</h2>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Прямо пропорционально</h3>
+        <p>Если количество одинаковых билетов увеличилось в 2 раза, то общая цена тоже увеличилась в 2 раза.</p>
+        <p class="formula">цена = стоимость одного билета · количество</p>
+      </div>
+      <div class="panel peach">
+        <h3>Просто растёт, но не пропорционально</h3>
+        <p>Такси стоит 150 рублей за посадку и 40 рублей за каждый километр.</p>
+        <p class="formula">цена = 150 + 40x</p>
+      </div>
+    </div>
+    <div class="callout warning">Во второй ситуации график не проходит через <span class="math">(0; 0)</span>: даже при 0 км остаётся фиксированная плата 150 рублей.</div>
+  </section>
+
+  <section class="slide" data-number="30" aria-label="Слайд 30">
+    <p class="kicker">Пример</p>
+    <h2>Постоянная скорость</h2>
+    <p>Велосипедист едет со скоростью 12 км/ч. Расстояние прямо пропорционально времени.</p>
+    <div class="grid">
+      <div class="panel">
+        <h3>Формула</h3>
+        <p class="formula">s = vt</p>
+        <p>Здесь <span class="math">v = 12</span>, значит:</p>
+        <p class="formula">s = 12t</p>
+      </div>
+      <div class="panel">
+        <h3>Таблица</h3>
+        <table class="tight">
+          <tbody>
+            <tr><th>t, ч</th><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+            <tr><th>s, км</th><td>12</td><td>24</td><td>36</td><td>48</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="question">Какое расстояние велосипедист проедет за 2,5 часа?</div>
+  </section>
+
+  <section class="slide" data-number="31" aria-label="Слайд 31">
+    <p class="kicker">Практика</p>
+    <h2>Прямая пропорциональность</h2>
+    <ol>
+      <li>Проверь, прямо ли пропорциональны величины: <span class="math">(2; 14), (5; 35), (8; 56)</span>.</li>
+      <li>Найди формулу прямой пропорциональности, если <span class="math">x = 6</span>, <span class="math">y = 42</span>.</li>
+      <li>При формуле <span class="math">y = 4,5x</span> найди <span class="math">y</span>, если <span class="math">x = 12</span>.</li>
+      <li>На графике прямой пропорциональности есть точка <span class="math">(3; 18)</span>. Через какую ещё точку он обязательно проходит?</li>
+    </ol>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide" data-number="32" aria-label="Слайд 32">
+    <p class="kicker">Новая идея</p>
+    <h2>Обратная пропорциональность</h2>
+    <p class="lead">Это связь, в которой одна величина увеличивается, а другая уменьшается во столько же раз.</p>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Пример смысла</h3>
+        <p>Одну и ту же работу делают несколько людей. Чем больше людей, тем меньше времени нужно.</p>
+      </div>
+      <div class="panel lemon">
+        <h3>Главный признак</h3>
+        <p>Не отношение, а произведение остаётся постоянным.</p>
+        <p class="formula">x · y = k</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="33" aria-label="Слайд 33">
+    <p class="kicker">Определение</p>
+    <h2>Когда величины обратно пропорциональны?</h2>
+    <p>Величины <span class="math">x</span> и <span class="math">y</span> обратно пропорциональны, если их произведение постоянно:</p>
+    <p class="formula">x · y = k</p>
+    <p>Число <span class="math">k</span> тоже называется <strong>коэффициентом пропорциональности</strong>.</p>
+    <p>Ту же связь можно записать так:</p>
+    <p class="formula">y = <span class="frac"><span class="num">k</span><span class="den">x</span></span>, где x ≠ 0</p>
+    <div class="callout">Если <span class="math">x</span> увеличили в 3 раза, то <span class="math">y</span> уменьшается в 3 раза. Произведение <span class="math">x · y</span> остаётся тем же.</div>
+  </section>
+
+  <section class="slide" data-number="34" aria-label="Слайд 34">
+    <p class="kicker">Таблица</p>
+    <h2>Работа как обратная пропорциональность</h2>
+    <p>Одинаковую работу нужно выполнить за 24 человеко-часа. Чем больше работников, тем меньше часов нужно каждому.</p>
+    <table>
+      <thead>
+        <tr><th>Работники, <span class="math">x</span></th><th>Время, <span class="math">y</span>, ч</th><th>Произведение <span class="math">x · y</span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>24</td><td>24</td></tr>
+        <tr><td>2</td><td>12</td><td>24</td></tr>
+        <tr><td>3</td><td>8</td><td>24</td></tr>
+        <tr><td>4</td><td>6</td><td>24</td></tr>
+        <tr><td>6</td><td>4</td><td>24</td></tr>
+      </tbody>
+    </table>
+    <div class="answer callout">Постоянное произведение: <span class="math">k = 24</span>. Формула: <span class="math">y = <span class="frac"><span class="num">24</span><span class="den">x</span></span></span>.</div>
+  </section>
+
+  <section class="slide" data-number="35" aria-label="Слайд 35">
+    <p class="kicker">График</p>
+    <h2>График обратной пропорциональности</h2>
+    <div class="grid">
+      <div class="chart-card">
+        <svg viewBox="0 0 560 360" role="img" aria-label="График обратной пропорциональности">
+          <rect x="18" y="18" width="524" height="324" rx="8" fill="#ffffff" />
+          <line x1="70" y1="300" x2="510" y2="300" stroke="#657289" stroke-width="3" />
+          <line x1="70" y1="40" x2="70" y2="300" stroke="#657289" stroke-width="3" />
+          <g stroke="#e1e8f0" stroke-width="1">
+            <line x1="120" y1="40" x2="120" y2="300" />
+            <line x1="170" y1="40" x2="170" y2="300" />
+            <line x1="220" y1="40" x2="220" y2="300" />
+            <line x1="270" y1="40" x2="270" y2="300" />
+            <line x1="320" y1="40" x2="320" y2="300" />
+            <line x1="370" y1="40" x2="370" y2="300" />
+            <line x1="420" y1="40" x2="420" y2="300" />
+            <line x1="470" y1="40" x2="470" y2="300" />
+            <line x1="70" y1="248" x2="510" y2="248" />
+            <line x1="70" y1="196" x2="510" y2="196" />
+            <line x1="70" y1="144" x2="510" y2="144" />
+            <line x1="70" y1="92" x2="510" y2="92" />
+          </g>
+          <path d="M120 40 C135 82, 150 113, 170 144 C196 184, 230 212, 270 235 C325 267, 392 285, 470 294" fill="none" stroke="#7d69bf" stroke-width="6" stroke-linecap="round" />
+          <g fill="#db6d7a">
+            <circle cx="120" cy="40" r="7" />
+            <circle cx="170" cy="144" r="7" />
+            <circle cx="220" cy="196" r="7" />
+            <circle cx="270" cy="222" r="7" />
+            <circle cx="370" cy="248" r="7" />
+          </g>
+          <g fill="#263244" font-size="16" text-anchor="middle">
+            <text x="70" y="326">0</text>
+            <text x="120" y="326">1</text>
+            <text x="170" y="326">2</text>
+            <text x="220" y="326">3</text>
+            <text x="270" y="326">4</text>
+            <text x="370" y="326">6</text>
+            <text x="500" y="326">x</text>
+            <text x="48" y="304">0</text>
+            <text x="44" y="252">4</text>
+            <text x="44" y="226">6</text>
+            <text x="44" y="200">8</text>
+            <text x="40" y="148">12</text>
+            <text x="40" y="44">24</text>
+            <text x="44" y="28">y</text>
+          </g>
+        </svg>
+      </div>
+      <div class="panel">
+        <h3>Признаки графика</h3>
+        <ul>
+          <li>Это кривая, а не прямая линия.</li>
+          <li>Она приближается к осям, но не проходит через <span class="math">(0; 0)</span>.</li>
+          <li>Для положительных <span class="math">x</span> при росте <span class="math">x</span> значение <span class="math">y</span> уменьшается.</li>
+        </ul>
+        <p class="formula">y = <span class="frac"><span class="num">24</span><span class="den">x</span></span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="36" aria-label="Слайд 36">
+    <p class="kicker">Как распознать</p>
+    <h2>Проверка по таблице</h2>
+    <p>Чтобы проверить обратную пропорциональность, найди произведение <span class="math">x · y</span> для каждой пары значений.</p>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Обратная пропорциональность</h3>
+        <table class="tight">
+          <tbody>
+            <tr><th>x</th><td>2</td><td>3</td><td>6</td></tr>
+            <tr><th>y</th><td>18</td><td>12</td><td>6</td></tr>
+            <tr><th>x · y</th><td>36</td><td>36</td><td>36</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel rose">
+        <h3>Не обратная пропорциональность</h3>
+        <table class="tight">
+          <tbody>
+            <tr><th>x</th><td>2</td><td>3</td><td>6</td></tr>
+            <tr><th>y</th><td>18</td><td>11</td><td>6</td></tr>
+            <tr><th>x · y</th><td>36</td><td>33</td><td>36</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="callout">Если произведение меняется, единого коэффициента <span class="math">k</span> нет.</div>
+  </section>
+
+  <section class="slide" data-number="37" aria-label="Слайд 37">
+    <p class="kicker">Сравнение</p>
+    <h2>Прямая или обратная?</h2>
+    <table>
+      <thead>
+        <tr><th>Вопрос</th><th>Прямая пропорциональность</th><th>Обратная пропорциональность</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Что постоянно?</td><td><span class="math"><span class="frac"><span class="num">y</span><span class="den">x</span></span> = k</span></td><td><span class="math">x · y = k</span></td></tr>
+        <tr><td>Формула</td><td><span class="math">y = kx</span></td><td><span class="math">y = <span class="frac"><span class="num">k</span><span class="den">x</span></span></span></td></tr>
+        <tr><td>Если <span class="math">x</span> в 2 раза больше</td><td><span class="math">y</span> тоже в 2 раза больше</td><td><span class="math">y</span> в 2 раза меньше</td></tr>
+        <tr><td>График</td><td>Прямая через <span class="math">(0; 0)</span></td><td>Кривая, не проходит через <span class="math">(0; 0)</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide" data-number="38" aria-label="Слайд 38">
+    <p class="kicker">Текстовые задачи</p>
+    <h2>Как отличать по смыслу</h2>
+    <div class="grid">
+      <div class="panel mint">
+        <h3>Прямая</h3>
+        <p>Одна величина больше - другая тоже больше.</p>
+        <ul>
+          <li>Больше товара - больше цена.</li>
+          <li>Больше времени при той же скорости - больше расстояние.</li>
+          <li>Больше страниц в день - больше страниц всего.</li>
+        </ul>
+      </div>
+      <div class="panel lemon">
+        <h3>Обратная</h3>
+        <p>Одна величина больше - другая меньше, потому что общий результат фиксирован.</p>
+        <ul>
+          <li>Больше работников - меньше времени на ту же работу.</li>
+          <li>Больше скорость - меньше время на тот же путь.</li>
+          <li>Больше кранов - меньше время наполнения того же бассейна.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">Спроси себя: “Что остаётся неизменным?” Если фиксирована цена за 1 штуку, это обычно прямая. Если фиксирована вся работа, весь путь или весь объём, это часто обратная.</div>
+  </section>
+
+  <section class="slide" data-number="39" aria-label="Слайд 39">
+    <p class="kicker">Пример</p>
+    <h2>Скорость и время на один путь</h2>
+    <p>Расстояние между городами фиксировано: 180 км. Чем больше скорость, тем меньше время в пути.</p>
+    <div class="grid">
+      <div class="panel">
+        <h3>Формула</h3>
+        <p class="formula">s = v · t</p>
+        <p>Так как <span class="math">s = 180</span>, получаем:</p>
+        <p class="formula">v · t = 180</p>
+        <p class="formula">t = <span class="frac"><span class="num">180</span><span class="den">v</span></span></p>
+      </div>
+      <div class="panel">
+        <h3>Проверка</h3>
+        <table class="tight">
+          <tbody>
+            <tr><th>v, км/ч</th><td>45</td><td>60</td><td>90</td></tr>
+            <tr><th>t, ч</th><td>4</td><td>3</td><td>2</td></tr>
+            <tr><th>v · t</th><td>180</td><td>180</td><td>180</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="question">Сколько времени займёт путь, если скорость 72 км/ч?</div>
+  </section>
+
+  <section class="slide" data-number="40" aria-label="Слайд 40">
+    <p class="kicker">Практика</p>
+    <h2>Обратная пропорциональность</h2>
+    <ol>
+      <li>Проверь, обратно ли пропорциональны величины: <span class="math">(2; 30), (3; 20), (5; 12)</span>.</li>
+      <li>Найди формулу обратной пропорциональности, если при <span class="math">x = 4</span> получается <span class="math">y = 15</span>.</li>
+      <li>При формуле <span class="math">y = <span class="frac"><span class="num">48</span><span class="den">x</span></span></span> найди <span class="math">y</span>, если <span class="math">x = 8</span>.</li>
+      <li>6 рабочих выполняют работу за 10 дней. Сколько дней понадобится 15 рабочим при той же производительности?</li>
+    </ol>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide" data-number="41" aria-label="Слайд 41">
+    <p class="kicker">Практика</p>
+    <h2>Выбери тип зависимости</h2>
+    <table>
+      <thead>
+        <tr><th>Ситуация</th><th>Прямая, обратная или другая?</th><th>Почему?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Количество одинаковых тетрадей и их стоимость.</td><td></td><td></td></tr>
+        <tr><td>Скорость и время для одного и того же расстояния.</td><td></td><td></td></tr>
+        <tr><td>Количество работников и время для одной и той же работы.</td><td></td><td></td></tr>
+        <tr><td>Возраст человека и его рост.</td><td></td><td></td></tr>
+        <tr><td>Количество одинаковых пакетов и общая масса крупы.</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide" data-number="42" aria-label="Слайд 42">
+    <p class="kicker">Типичные ошибки</p>
+    <h2>На что обратить внимание</h2>
+    <div class="grid">
+      <div class="panel rose">
+        <h3>Ошибка 1</h3>
+        <p>Не привести единицы измерения к одному виду.</p>
+        <p class="small">Например, сравнивать метры и сантиметры без перевода.</p>
+      </div>
+      <div class="panel rose">
+        <h3>Ошибка 2</h3>
+        <p>Поменять порядок частей отношения.</p>
+        <p class="small"><span class="math">2 : 5</span> и <span class="math">5 : 2</span> - разные отношения.</p>
+      </div>
+      <div class="panel rose">
+        <h3>Ошибка 3</h3>
+        <p>Думать, что любой рост является прямой пропорциональностью.</p>
+        <p class="small">Нужно постоянное отношение <span class="math"><span class="frac"><span class="num">y</span><span class="den">x</span></span></span>.</p>
+      </div>
+      <div class="panel rose">
+        <h3>Ошибка 4</h3>
+        <p>Составить пропорцию без смысла.</p>
+        <p class="small">Одинаковые величины должны стоять в одинаковых позициях.</p>
+      </div>
+      <div class="panel rose">
+        <h3>Ошибка 5</h3>
+        <p>Проверять обратную пропорциональность через отношение.</p>
+        <p class="small">Для обратной нужно смотреть на произведение <span class="math">x · y</span>.</p>
+      </div>
+      <div class="panel rose">
+        <h3>Ошибка 6</h3>
+        <p>Считать любую убывающую зависимость обратной пропорциональностью.</p>
+        <p class="small">Убывание должно сохранять постоянное произведение.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="43" aria-label="Слайд 43">
+    <p class="kicker">Сводка</p>
+    <h2>Главные формулы и идеи</h2>
+    <table>
+      <thead>
+        <tr><th>Тема</th><th>Формула / идея</th><th>Когда использовать</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Отношение</td><td><span class="math">a : b = <span class="frac"><span class="num">a</span><span class="den">b</span></span></span></td><td>Сравнить две величины.</td></tr>
+        <tr><td>Эквивалентные отношения</td><td><span class="math">a : b = ka : kb</span></td><td>Сокращать или увеличивать отношение.</td></tr>
+        <tr><td>Пропорция</td><td><span class="math"><span class="frac"><span class="num">a</span><span class="den">b</span></span> = <span class="frac"><span class="num">c</span><span class="den">d</span></span></span></td><td>Показать равенство двух отношений.</td></tr>
+        <tr><td>Крест-накрест</td><td><span class="math">a · d = b · c</span></td><td>Решить пропорцию.</td></tr>
+        <tr><td>Прямая пропорциональность</td><td><span class="math">y = kx</span></td><td>Одна величина меняется во столько же раз, что и другая.</td></tr>
+        <tr><td>Обратная пропорциональность</td><td><span class="math">x · y = k</span> или <span class="math">y = <span class="frac"><span class="num">k</span><span class="den">x</span></span></span></td><td>Одна величина увеличивается, а другая уменьшается во столько же раз.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide" data-number="44" aria-label="Слайд 44">
+    <p class="kicker">Итоговая практика</p>
+    <h2>Смешанные задания</h2>
+    <ol>
+      <li>Сократи отношение <span class="math">45 : 60</span>.</li>
+      <li>Раздели 630 г смеси в отношении <span class="math">2 : 3 : 4</span>.</li>
+      <li>Реши пропорцию <span class="math"><span class="frac"><span class="num">9</span><span class="den">x</span></span> = <span class="frac"><span class="num">15</span><span class="den">20</span></span></span>.</li>
+      <li>6 одинаковых блокнотов стоят 510 рублей. Сколько стоят 11 таких блокнотов?</li>
+      <li>Проверь, задаёт ли таблица прямую пропорциональность: <span class="math">x: 3, 5, 9</span>; <span class="math">y: 12, 20, 35</span>.</li>
+      <li>8 одинаковых станков выполняют заказ за 15 часов. Сколько часов нужно 12 таким станкам?</li>
+      <li>Определи тип зависимости: <span class="math">x: 2, 4, 8</span>; <span class="math">y: 24, 12, 6</span>.</li>
+    </ol>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide center" data-number="45" aria-label="Слайд 45">
+    <p class="kicker">Конец урока</p>
+    <h2>Спасибо за внимание!</h2>
+    <p class="lead">Если остались какие-то вопросы, не стесняйся их спрашивать.</p>
+  </section>
+</main>
+
+<script>
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const counter = document.getElementById("counter");
+  let current = 0;
+
+  function setCurrent(index) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+    counter.textContent = `Слайд ${current + 1} / ${slides.length}`;
+  }
+
+  function go(delta) {
+    setCurrent(current + delta);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight" || event.key === "PageDown") go(1);
+    if (event.key === "ArrowLeft" || event.key === "PageUp") go(-1);
+    if (event.key === "Home") setCurrent(0);
+    if (event.key === "End") setCurrent(slides.length - 1);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!visible) return;
+    current = slides.indexOf(visible.target);
+    counter.textContent = `Слайд ${current + 1} / ${slides.length}`;
+  }, { threshold: [0.55] });
+
+  slides.forEach((slide) => observer.observe(slide));
+</script>
+</body>
+</html>
