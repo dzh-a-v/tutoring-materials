@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Data Management: Trends in Communities</title>
+<style>
+  :root {
+    --paper: #fbfaf6;
+    --ink: #233142;
+    --muted: #66758a;
+    --line: #d7e0ea;
+    --teal: #1f9a9a;
+    --blue: #4278c6;
+    --gold: #e7b64a;
+    --rose: #d95f76;
+    --green: #50a36d;
+    --purple: #8067b7;
+    --soft-teal: #e7f5f3;
+    --soft-gold: #fff4d8;
+    --soft-blue: #e9f0fb;
+    --shadow: 0 18px 46px rgba(31, 48, 69, 0.16);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    background: #edf3f4;
+    color: var(--ink);
+    font-family: "Segoe UI", Inter, system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 8% 7%, rgba(31, 154, 154, 0.18), transparent 28%),
+      radial-gradient(circle at 92% 9%, rgba(231, 182, 74, 0.20), transparent 30%),
+      linear-gradient(135deg, #f8f4ec 0%, #eaf5f3 55%, #eef2f7 100%);
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(35, 49, 66, 0.12);
+    backdrop-filter: blur(12px);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    letter-spacing: 0;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  button {
+    border: 0;
+    border-radius: 6px;
+    padding: 9px 13px;
+    background: var(--teal);
+    color: white;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(31, 154, 154, 0.25);
+  }
+
+  button.secondary {
+    background: #30445b;
+    box-shadow: 0 5px 15px rgba(48, 68, 91, 0.22);
+  }
+
+  .counter {
+    min-width: 92px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  main {
+    width: min(1200px, 96vw);
+    margin: 28px auto 64px;
+  }
+
+  .slide {
+    min-height: 690px;
+    margin: 0 auto 36px;
+    padding: 52px;
+    background: var(--paper);
+    border: 1px solid rgba(35, 49, 66, 0.09);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 90px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .slide::after {
+    content: attr(data-number);
+    position: absolute;
+    right: 28px;
+    bottom: 22px;
+    color: #9aa6b5;
+    font-size: 14px;
+  }
+
+  .center {
+    display: grid;
+    place-content: center;
+    text-align: center;
+  }
+
+  .kicker {
+    margin: 0 0 12px;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  h2 {
+    margin: 0 0 22px;
+    font-size: clamp(32px, 4.8vw, 58px);
+    line-height: 1.08;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    margin: 0 0 12px;
+    font-size: 25px;
+    letter-spacing: 0;
+  }
+
+  p, li {
+    font-size: 23px;
+    line-height: 1.42;
+  }
+
+  p { margin: 0 0 16px; }
+
+  ul, ol {
+    margin: 0;
+    padding-left: 30px;
+  }
+
+  li + li { margin-top: 8px; }
+
+  .lead {
+    font-size: 30px;
+    color: #41526a;
+    max-width: 900px;
+  }
+
+  .small {
+    font-size: 18px;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .grid.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid.four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .panel {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+  }
+
+  .panel.tint { background: var(--soft-teal); }
+  .panel.gold { background: var(--soft-gold); }
+  .panel.blue { background: var(--soft-blue); }
+
+  .callout {
+    margin-top: 22px;
+    padding: 18px 22px;
+    background: #e8f6f3;
+    border-left: 8px solid var(--teal);
+    border-radius: 6px;
+    font-size: 23px;
+  }
+
+  .warning {
+    background: #fff1ef;
+    border-left-color: var(--rose);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 21px;
+  }
+
+  th, td {
+    border: 1px solid var(--line);
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th { background: #e5f3f2; }
+
+  .tight p, .tight li { font-size: 20px; }
+  .wide { grid-column: 1 / -1; }
+
+  .formula {
+    display: inline-block;
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #fff0c2;
+    font-size: 25px;
+    font-weight: 800;
+  }
+
+  .question {
+    margin-top: 20px;
+    padding: 18px 20px;
+    border: 2px dashed #92a1b4;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.65);
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .answer-space {
+    min-height: 126px;
+    margin-top: 14px;
+    border-radius: 8px;
+    background:
+      repeating-linear-gradient(white 0, white 32px, #dbe3ec 33px);
+    border: 1px solid var(--line);
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    border-radius: 6px;
+    padding: 6px 10px;
+    background: #edf5fb;
+    border: 1px solid #cddcea;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .chart-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .caption {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 17px;
+  }
+
+  .choice-table td:nth-child(1) { font-weight: 700; }
+
+  .mini-note {
+    min-height: 118px;
+    padding: 16px;
+    border-radius: 6px;
+    background: #fff8dc;
+    border: 1px solid #ead991;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .flow div {
+    padding: 16px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 800;
+  }
+
+  @media (max-width: 820px) {
+    header { align-items: flex-start; }
+    .slide { min-height: auto; padding: 30px 22px; }
+    .grid, .grid.three, .grid.four, .flow { grid-template-columns: 1fr; }
+    p, li, table { font-size: 19px; }
+    .lead { font-size: 24px; }
+  }
+
+  @media print {
+    header { display: none; }
+    body { background: white; }
+    main { width: 100%; margin: 0; }
+    .slide {
+      min-height: 100vh;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      page-break-after: always;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Data Management: Trends in Communities</h1>
+  <div class="controls">
+    <button type="button" onclick="go(-1)">Previous</button>
+    <span class="counter" id="counter">Slide 1 / 38</span>
+    <button type="button" onclick="go(1)">Next</button>
+    <button type="button" class="secondary" onclick="window.print()">Print / Save PDF</button>
+  </div>
+</header>
+
+<main>
+  <section class="slide center" data-number="1" aria-label="Slide 1">
+    <p class="kicker">MYP 1 Mathematics</p>
+    <h2>Data Management</h2>
+    <p class="lead">Using data to reveal characteristics, relationships, and trends in communities.</p>
+  </section>
+
+  <section class="slide" data-number="2" aria-label="Slide 2">
+    <p class="kicker">Big Idea</p>
+    <h2>Representation Helps Us Justify Trends</h2>
+    <p>Data management is about collecting information, organising it, displaying it clearly, and then interpreting it so that conclusions are justified.</p>
+    <div class="flow">
+      <div>Collect</div>
+      <div>Classify</div>
+      <div>Represent</div>
+      <div>Interpret</div>
+    </div>
+    <div class="callout">A graph should help someone see what is important in the data, not hide it.</div>
+  </section>
+
+  <section class="slide" data-number="3" aria-label="Slide 3">
+    <p class="kicker">Lesson Goals</p>
+    <h2>What We Need to Be Able to Do</h2>
+    <ul>
+      <li>Classify data as categorical, ordinal, discrete, or continuous.</li>
+      <li>Organise raw responses using a frequency table.</li>
+      <li>Construct bar graphs, histograms, circle graphs, and line graphs.</li>
+      <li>Choose the most effective graph for a data set.</li>
+      <li>Identify trends, characteristics, and misleading representations.</li>
+    </ul>
+  </section>
+
+  <section class="slide" data-number="4" aria-label="Slide 4">
+    <p class="kicker">Community Context</p>
+    <h2>What Can Data Show?</h2>
+    <div class="grid">
+      <div class="panel">
+        <h3>Characteristics</h3>
+        <p>What is true about a group at one time?</p>
+        <p class="small">Example: Most students travel to school by bus.</p>
+      </div>
+      <div class="panel">
+        <h3>Trends</h3>
+        <p>How does something change over time or between groups?</p>
+        <p class="small">Example: Cycling to school increased from Year 1 to Year 5.</p>
+      </div>
+    </div>
+    <div class="question">What issue in your school or community could be investigated with data?</div>
+  </section>
+
+  <section class="slide" data-number="5" aria-label="Slide 5">
+    <p class="kicker">Data Types</p>
+    <h2>Qualitative and Quantitative</h2>
+    <div class="grid">
+      <div class="panel tint">
+        <h3>Qualitative Data</h3>
+        <p>Words, labels, descriptions, or ordered categories.</p>
+        <ul>
+          <li>Categorical</li>
+          <li>Ordinal</li>
+        </ul>
+      </div>
+      <div class="panel gold">
+        <h3>Quantitative Data</h3>
+        <p>Numerical data that describes quantities.</p>
+        <ul>
+          <li>Discrete</li>
+          <li>Continuous</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="6" aria-label="Slide 6">
+    <p class="kicker">Four Categories</p>
+    <h2>Classifying Data</h2>
+    <div class="grid four tight">
+      <div class="panel">
+        <h3>Categorical</h3>
+        <p>Groups with no natural order.</p>
+        <p class="small">Music genre, transport type, hair colour.</p>
+      </div>
+      <div class="panel">
+        <h3>Ordinal</h3>
+        <p>Categories with an order.</p>
+        <p class="small">Rating 1-5, low-medium-high, MYP year.</p>
+      </div>
+      <div class="panel">
+        <h3>Discrete</h3>
+        <p>Countable numbers.</p>
+        <p class="small">Number of siblings, pets, points scored.</p>
+      </div>
+      <div class="panel">
+        <h3>Continuous</h3>
+        <p>Measured numbers that can take values between values.</p>
+        <p class="small">Height, time, distance, mass.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="7" aria-label="Slide 7">
+    <p class="kicker">Check</p>
+    <h2>Classify Each Survey Answer</h2>
+    <table>
+      <thead>
+        <tr><th>Survey question</th><th>Data type</th><th>Reason</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Which transport do you use most often?</td><td></td><td></td></tr>
+        <tr><td>Rate the school cafeteria from 1 to 5.</td><td></td><td></td></tr>
+        <tr><td>How many texts did you send today?</td><td></td><td></td></tr>
+        <tr><td>How long did you spend studying last night?</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide" data-number="8" aria-label="Slide 8">
+    <p class="kicker">Collecting Data</p>
+    <h2>Questions Must Match the Data You Need</h2>
+    <div class="grid">
+      <div class="panel">
+        <h3>Less useful</h3>
+        <p>Do you use social media too much?</p>
+        <p class="small">This is biased and does not define what "too much" means.</p>
+      </div>
+      <div class="panel">
+        <h3>More useful</h3>
+        <p>How many minutes did you spend on social media yesterday?</p>
+        <p class="small">This produces measurable data that can be represented.</p>
+      </div>
+    </div>
+    <div class="callout">Before collecting data, decide what characteristic or trend you are trying to uncover.</div>
+  </section>
+
+  <section class="slide" data-number="9" aria-label="Slide 9">
+    <p class="kicker">Frequency Tables</p>
+    <h2>Organising Counted Responses</h2>
+    <p>A frequency table uses tally marks to keep track of items that are being counted. Then the tallies are totalled in a frequency column.</p>
+    <table>
+      <thead>
+        <tr><th>Hours of sleep</th><th>Tally</th><th>Frequency</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>4</td><td>||</td><td>2</td></tr>
+        <tr><td>5</td><td>||||</td><td>4</td></tr>
+        <tr><td>6</td><td>||||| ||</td><td>7</td></tr>
+        <tr><td>7</td><td>|||||</td><td>5</td></tr>
+        <tr><td>8</td><td>|||</td><td>3</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide" data-number="10" aria-label="Slide 10">
+    <p class="kicker">Frequency Tables</p>
+    <h2>When Are They Useful?</h2>
+    <div class="grid">
+      <div class="panel tint">
+        <h3>Use when</h3>
+        <ul>
+          <li>You are counting categories or repeated values.</li>
+          <li>You need to check the total number of responses.</li>
+          <li>You want a table before drawing a graph.</li>
+        </ul>
+      </div>
+      <div class="panel gold">
+        <h3>Be careful when</h3>
+        <ul>
+          <li>There are too many different values.</li>
+          <li>Continuous data needs intervals.</li>
+          <li>The categories are unclear or overlap.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="question">Where would your answer to "How many hours did you sleep last night?" fit?</div>
+  </section>
+
+  <section class="slide" data-number="11" aria-label="Slide 11">
+    <p class="kicker">Good Graphs</p>
+    <h2>Requirements for Clear Representation</h2>
+    <ul>
+      <li>Use a clear and relevant title.</li>
+      <li>Label axes and include units where needed.</li>
+      <li>Use an appropriate and evenly spaced scale.</li>
+      <li>Use a legend or key when there is more than one group.</li>
+      <li>Make the graph large enough to read.</li>
+      <li>Choose a graph type that fits the data and the question.</li>
+    </ul>
+  </section>
+
+  <section class="slide" data-number="12" aria-label="Slide 12">
+    <p class="kicker">Choosing</p>
+    <h2>Which Representation Fits?</h2>
+    <table class="choice-table">
+      <thead>
+        <tr><th>Representation</th><th>Best for</th><th>Not best for</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Frequency table</td><td>Organising counted responses</td><td>Showing trends visually</td></tr>
+        <tr><td>Bar graph</td><td>Comparing categories or discrete values</td><td>Continuous values over time</td></tr>
+        <tr><td>Histogram</td><td>Grouped continuous numerical data</td><td>Named categories</td></tr>
+        <tr><td>Circle graph</td><td>Showing parts of one whole</td><td>Many categories or trends</td></tr>
+        <tr><td>Line graph</td><td>Change over time and prediction</td><td>Unordered categories</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide" data-number="13" aria-label="Slide 13">
+    <p class="kicker">Bar Graph</p>
+    <h2>What It Shows</h2>
+    <div class="grid">
+      <div class="chart-card">
+        <svg viewBox="0 0 560 330" role="img" aria-label="Bar graph of drink preferences">
+          <text x="280" y="28" text-anchor="middle" font-size="24" font-weight="700">Drink preferences</text>
+          <line x1="70" y1="275" x2="520" y2="275" stroke="#66758a" stroke-width="3" />
+          <line x1="70" y1="55" x2="70" y2="275" stroke="#66758a" stroke-width="3" />
+          <g fill="#66758a" font-size="15">
+            <text x="42" y="280">0</text><text x="42" y="225">5</text><text x="34" y="170">10</text><text x="34" y="115">15</text><text x="34" y="60">20</text>
+          </g>
+          <g fill="#4278c6">
+            <rect x="105" y="165" width="52" height="110" />
+            <rect x="185" y="110" width="52" height="165" />
+            <rect x="265" y="220" width="52" height="55" />
+            <rect x="345" y="88" width="52" height="187" />
+            <rect x="425" y="198" width="52" height="77" />
+          </g>
+          <g fill="#233142" font-size="16" text-anchor="middle">
+            <text x="131" y="302">tea</text><text x="211" y="302">coffee</text><text x="291" y="302">soft</text><text x="371" y="302">water</text><text x="451" y="302">juice</text>
+            <text x="295" y="326">Preferred drink</text>
+          </g>
+          <text x="20" y="175" transform="rotate(-90 20 175)" font-size="17" fill="#233142">Number of students</text>
+        </svg>
+      </div>
+      <div class="panel">
+        <h3>Use for</h3>
+        <ul>
+          <li>Categorical data</li>
+          <li>Ordinal data</li>
+          <li>Discrete data with clear values</li>
+        </ul>
+        <p>The bars should have equal width. The height shows the frequency or percentage.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="14" aria-label="Slide 14">
+    <p class="kicker">Bar Graph</p>
+    <h2>How to Draw It by Hand</h2>
+    <ol>
+      <li>Make a frequency table or list the categories and values.</li>
+      <li>Draw two axes. Put categories on the horizontal axis and frequency or percentage on the vertical axis.</li>
+      <li>Choose an even vertical scale that fits the largest value.</li>
+      <li>Label both axes and include units if needed.</li>
+      <li>Draw bars with equal widths and equal gaps.</li>
+      <li>Add a title. If there are multiple groups, add a colour-coded legend.</li>
+    </ol>
+    <div class="callout">For a bar graph, the bar heights matter. The bar widths should not carry meaning.</div>
+  </section>
+
+  <section class="slide" data-number="15" aria-label="Slide 15">
+    <p class="kicker">Histogram</p>
+    <h2>Grouped Continuous Data</h2>
+    <div class="grid">
+      <div class="chart-card">
+        <svg viewBox="0 0 560 330" role="img" aria-label="Histogram of study time">
+          <text x="280" y="28" text-anchor="middle" font-size="24" font-weight="700">Study time last night</text>
+          <line x1="70" y1="275" x2="520" y2="275" stroke="#66758a" stroke-width="3" />
+          <line x1="70" y1="55" x2="70" y2="275" stroke="#66758a" stroke-width="3" />
+          <g fill="#66758a" font-size="15">
+            <text x="42" y="280">0</text><text x="42" y="225">2</text><text x="42" y="170">4</text><text x="42" y="115">6</text><text x="42" y="60">8</text>
+          </g>
+          <g fill="#1f9a9a">
+            <rect x="90" y="220" width="75" height="55" />
+            <rect x="165" y="165" width="75" height="110" />
+            <rect x="240" y="88" width="75" height="187" />
+            <rect x="315" y="143" width="75" height="132" />
+            <rect x="390" y="198" width="75" height="77" />
+          </g>
+          <g fill="#233142" font-size="15" text-anchor="middle">
+            <text x="128" y="302">0-15</text><text x="203" y="302">16-30</text><text x="278" y="302">31-45</text><text x="353" y="302">46-60</text><text x="428" y="302">61-75</text>
+            <text x="280" y="326">Minutes</text>
+          </g>
+          <text x="20" y="178" transform="rotate(-90 20 178)" font-size="17" fill="#233142">Frequency</text>
+        </svg>
+      </div>
+      <div class="panel">
+        <h3>How it differs from a bar graph</h3>
+        <ul>
+          <li>The horizontal axis is made of intervals.</li>
+          <li>The bars touch because the intervals are continuous.</li>
+          <li>It shows the shape of a numerical distribution.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="16" aria-label="Slide 16">
+    <p class="kicker">Histogram</p>
+    <h2>How to Draw It by Hand</h2>
+    <ol>
+      <li>Choose equal intervals for the continuous data, such as 0-15, 16-30, 31-45 minutes.</li>
+      <li>Count how many data values fit in each interval.</li>
+      <li>Draw axes and place intervals on the horizontal axis.</li>
+      <li>Put frequency on the vertical axis and choose an even scale.</li>
+      <li>Draw bars that touch, because the intervals continue from one to the next.</li>
+      <li>Add a clear title and labels with units.</li>
+    </ol>
+    <div class="warning callout">Do not use a histogram for categories like sport, colour, or music genre. Those need a bar graph.</div>
+  </section>
+
+  <section class="slide" data-number="17" aria-label="Slide 17">
+    <p class="kicker">Line Graph</p>
+    <h2>Showing Change and Trends</h2>
+    <div class="grid">
+      <div class="chart-card">
+        <svg viewBox="0 0 560 330" role="img" aria-label="Line graph of smartphone sales">
+          <text x="280" y="28" text-anchor="middle" font-size="24" font-weight="700">Smartphone sales by year</text>
+          <line x1="70" y1="275" x2="520" y2="275" stroke="#66758a" stroke-width="3" />
+          <line x1="70" y1="55" x2="70" y2="275" stroke="#66758a" stroke-width="3" />
+          <polyline points="90,250 150,235 210,210 270,170 330,122 390,85 450,70" fill="none" stroke="#d95f76" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          <g fill="#66758a" font-size="15">
+            <text x="34" y="280">0</text><text x="26" y="225">250</text><text x="26" y="170">500</text><text x="26" y="115">750</text><text x="18" y="60">1000</text>
+          </g>
+          <g fill="#d95f76">
+            <circle cx="90" cy="250" r="7" /><circle cx="150" cy="235" r="7" /><circle cx="210" cy="210" r="7" /><circle cx="270" cy="170" r="7" /><circle cx="330" cy="122" r="7" /><circle cx="390" cy="85" r="7" /><circle cx="450" cy="70" r="7" />
+          </g>
+          <g fill="#233142" font-size="15" text-anchor="middle">
+            <text x="90" y="302">2007</text><text x="150" y="302">2008</text><text x="210" y="302">2009</text><text x="270" y="302">2010</text><text x="330" y="302">2011</text><text x="390" y="302">2012</text><text x="450" y="302">2013</text>
+            <text x="300" y="326">Year</text>
+          </g>
+          <text x="18" y="180" transform="rotate(-90 18 180)" font-size="17" fill="#233142">Sales in millions</text>
+        </svg>
+      </div>
+      <div class="panel">
+        <h3>Use for</h3>
+        <ul>
+          <li>Continuous data over time</li>
+          <li>Time series</li>
+          <li>Prediction from visible patterns</li>
+        </ul>
+        <p>A line graph is created by joining data points with lines.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="18" aria-label="Slide 18">
+    <p class="kicker">Line Graph</p>
+    <h2>How to Draw It by Hand</h2>
+    <ol>
+      <li>Put time on the horizontal axis if the data is a time series.</li>
+      <li>Put the measured variable on the vertical axis.</li>
+      <li>Label both axes and include units.</li>
+      <li>Choose scales that are evenly distributed. The horizontal and vertical scales may be different.</li>
+      <li>Plot each ordered pair carefully.</li>
+      <li>Join neighbouring points with straight line segments.</li>
+      <li>Add a title and a legend if there is more than one line.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="19" aria-label="Slide 19">
+    <p class="kicker">Circle Graph</p>
+    <h2>Parts of a Whole</h2>
+    <div class="grid">
+      <div class="chart-card">
+        <svg viewBox="0 0 560 330" role="img" aria-label="Circle graph of phone use">
+          <text x="280" y="28" text-anchor="middle" font-size="23" font-weight="700">Mobile phone function most used</text>
+          <circle cx="170" cy="175" r="100" fill="#4278c6" />
+          <path d="M170 175 L170 75 A100 100 0 0 1 263 139 Z" fill="#e7b64a" />
+          <path d="M170 175 L263 139 A100 100 0 0 1 146 272 Z" fill="#1f9a9a" />
+          <path d="M170 175 L146 272 A100 100 0 0 1 170 75 Z" fill="#d95f76" />
+          <g font-size="18" fill="#233142">
+            <rect x="330" y="100" width="18" height="18" fill="#4278c6" /><text x="358" y="115">Social media</text>
+            <rect x="330" y="140" width="18" height="18" fill="#1f9a9a" /><text x="358" y="155">Texting</text>
+            <rect x="330" y="180" width="18" height="18" fill="#d95f76" /><text x="358" y="195">Games</text>
+            <rect x="330" y="220" width="18" height="18" fill="#e7b64a" /><text x="358" y="235">Productivity</text>
+          </g>
+        </svg>
+      </div>
+      <div class="panel">
+        <h3>Use for</h3>
+        <ul>
+          <li>Categorical parts of one total</li>
+          <li>Percentages that add to 100%</li>
+          <li>Showing how a whole is divided</li>
+        </ul>
+        <p>It is usually weak for showing trends over time.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="20" aria-label="Slide 20">
+    <p class="kicker">Circle Graph</p>
+    <h2>How to Calculate Sector Angles</h2>
+    <p>A full circle has 360 degrees. Each sector must be proportional to the amount of data it represents.</p>
+    <p><span class="formula">sector angle = category fraction x 360</span></p>
+    <table>
+      <thead>
+        <tr><th>Food type</th><th>Calories</th><th>Fraction of total</th><th>Sector angle</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Home cooking</td><td>1400</td><td>1400/2000 = 0.70</td><td>0.70 x 360 = 252 degrees</td></tr>
+        <tr><td>Fast food</td><td>400</td><td>400/2000 = 0.20</td><td>0.20 x 360 = 72 degrees</td></tr>
+        <tr><td>Junk food</td><td>200</td><td>200/2000 = 0.10</td><td>0.10 x 360 = 36 degrees</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide" data-number="21" aria-label="Slide 21">
+    <p class="kicker">Circle Graph</p>
+    <h2>How to Draw It by Hand</h2>
+    <ol>
+      <li>Find the total number of data values.</li>
+      <li>Calculate each category as a fraction or percentage of the total.</li>
+      <li>Multiply each fraction by 360 to find the sector angle.</li>
+      <li>Check that all sector angles add to 360 degrees.</li>
+      <li>Draw a circle with a compass and mark the centre.</li>
+      <li>Draw a radius to use as the starting line.</li>
+      <li>Use a protractor to measure each sector from the last line drawn.</li>
+      <li>Add a title, labels or percentages, and a colour-coded key.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="22" aria-label="Slide 22">
+    <p class="kicker">Comparisons</p>
+    <h2>Multiple Data Sets</h2>
+    <div class="grid three tight">
+      <div class="panel">
+        <h3>Multiple bar graph</h3>
+        <p>Good for comparing several groups across categories.</p>
+      </div>
+      <div class="panel">
+        <h3>Multiple line graph</h3>
+        <p>Good for comparing trends over the same time period.</p>
+      </div>
+      <div class="panel">
+        <h3>Multiple circle graphs</h3>
+        <p>Can compare how different wholes are divided, but exact comparison can be harder.</p>
+      </div>
+    </div>
+    <div class="callout">When comparing graphs, use the same scale whenever possible. Otherwise the comparison may be misleading.</div>
+  </section>
+
+  <section class="slide" data-number="23" aria-label="Slide 23">
+    <p class="kicker">Multiple Bar Graph</p>
+    <h2>Example: Transport to School</h2>
+    <div class="chart-card">
+      <svg viewBox="0 0 880 390" role="img" aria-label="Multiple bar graph for transport">
+        <text x="440" y="28" text-anchor="middle" font-size="25" font-weight="700">Transport to school</text>
+        <line x1="70" y1="320" x2="790" y2="320" stroke="#66758a" stroke-width="3" />
+        <line x1="70" y1="60" x2="70" y2="320" stroke="#66758a" stroke-width="3" />
+        <g fill="#66758a" font-size="15"><text x="38" y="324">0%</text><text x="30" y="259">10%</text><text x="30" y="194">20%</text><text x="30" y="129">30%</text><text x="30" y="64">40%</text></g>
+        <g>
+          <rect x="120" y="248" width="28" height="72" fill="#4278c6" /><rect x="152" y="268" width="28" height="52" fill="#e7b64a" />
+          <rect x="250" y="242" width="28" height="78" fill="#4278c6" /><rect x="282" y="242" width="28" height="78" fill="#e7b64a" />
+          <rect x="380" y="288" width="28" height="32" fill="#4278c6" /><rect x="412" y="242" width="28" height="78" fill="#e7b64a" />
+          <rect x="510" y="164" width="28" height="156" fill="#4278c6" /><rect x="542" y="86" width="28" height="234" fill="#e7b64a" />
+          <rect x="640" y="112" width="28" height="208" fill="#4278c6" /><rect x="672" y="164" width="28" height="156" fill="#e7b64a" />
+        </g>
+        <g fill="#233142" font-size="16" text-anchor="middle">
+          <text x="150" y="350">bike</text><text x="280" y="350">walk</text><text x="410" y="350">skate</text><text x="540" y="350">car</text><text x="670" y="350">public</text>
+          <text x="430" y="378">Mode of transport</text>
+        </g>
+        <g font-size="16" fill="#233142">
+          <rect x="705" y="65" width="18" height="18" fill="#4278c6" /><text x="730" y="80">Middle school</text>
+          <rect x="705" y="95" width="18" height="18" fill="#e7b64a" /><text x="730" y="110">High school</text>
+        </g>
+        <text x="18" y="200" transform="rotate(-90 18 200)" font-size="17" fill="#233142">Percentage of students</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="slide" data-number="24" aria-label="Slide 24">
+    <p class="kicker">Interpretation</p>
+    <h2>Characteristics vs Trends</h2>
+    <div class="grid">
+      <div class="panel">
+        <h3>Characteristic</h3>
+        <p>A feature visible in the data.</p>
+        <p class="small">Example: Car travel is more common for high school students than middle school students.</p>
+      </div>
+      <div class="panel">
+        <h3>Trend</h3>
+        <p>A pattern of change.</p>
+        <p class="small">Example: As students get older, car travel appears to increase and public transport appears to decrease.</p>
+      </div>
+    </div>
+    <div class="question">Can this graph prove why the trend happens? What extra data would help?</div>
+  </section>
+
+  <section class="slide" data-number="25" aria-label="Slide 25">
+    <p class="kicker">Choosing Practice</p>
+    <h2>Pick the Most Effective Graph</h2>
+    <table>
+      <thead>
+        <tr><th>Data set</th><th>Best graph</th><th>Why?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Favourite sports in a class</td><td></td><td></td></tr>
+        <tr><td>Average monthly temperature for one city</td><td></td><td></td></tr>
+        <tr><td>How one class spends a 24-hour day</td><td></td><td></td></tr>
+        <tr><td>Study time grouped into 15-minute intervals</td><td></td><td></td></tr>
+        <tr><td>Water access in urban and rural areas for five countries</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide" data-number="26" aria-label="Slide 26">
+    <p class="kicker">Misleading Graphs</p>
+    <h2>Scale Can Change the Story</h2>
+    <div class="grid">
+      <div class="chart-card">
+        <svg viewBox="0 0 420 270" role="img" aria-label="Misleading steep graph">
+          <text x="210" y="24" text-anchor="middle" font-size="20" font-weight="700">Scale starts at 70</text>
+          <line x1="60" y1="220" x2="380" y2="220" stroke="#66758a" stroke-width="3" />
+          <line x1="60" y1="40" x2="60" y2="220" stroke="#66758a" stroke-width="3" />
+          <polyline points="80,50 150,80 220,120 290,160 360,190" fill="none" stroke="#d95f76" stroke-width="6" />
+          <g fill="#233142" font-size="14"><text x="28" y="224">70</text><text x="28" y="164">80</text><text x="28" y="104">90</text><text x="20" y="44">100</text></g>
+        </svg>
+      </div>
+      <div class="chart-card">
+        <svg viewBox="0 0 420 270" role="img" aria-label="Fairer graph with zero scale">
+          <text x="210" y="24" text-anchor="middle" font-size="20" font-weight="700">Scale starts at 0</text>
+          <line x1="60" y1="220" x2="380" y2="220" stroke="#66758a" stroke-width="3" />
+          <line x1="60" y1="40" x2="60" y2="220" stroke="#66758a" stroke-width="3" />
+          <polyline points="80,70 150,85 220,105 290,125 360,140" fill="none" stroke="#1f9a9a" stroke-width="6" />
+          <g fill="#233142" font-size="14"><text x="36" y="224">0</text><text x="28" y="184">25</text><text x="28" y="144">50</text><text x="28" y="104">75</text><text x="20" y="64">100</text></g>
+        </svg>
+      </div>
+    </div>
+    <div class="question">Which graph makes the change look more dramatic? Is that justified?</div>
+  </section>
+
+  <section class="slide" data-number="27" aria-label="Slide 27">
+    <p class="kicker">Misleading Graphs</p>
+    <h2>What to Watch For</h2>
+    <ul>
+      <li>A vertical scale that cuts off important context.</li>
+      <li>Different scales used for graphs that are being compared.</li>
+      <li>Titles or headlines that claim more than the data shows.</li>
+      <li>Missing units, missing labels, or unclear categories.</li>
+      <li>A graph type that hides the key relationship.</li>
+      <li>A table or graph that does not show whether the data is a sample or a whole population.</li>
+    </ul>
+  </section>
+
+  <section class="slide" data-number="28" aria-label="Slide 28">
+    <p class="kicker">Graph Checklist</p>
+    <h2>Before You Say a Graph Is Finished</h2>
+    <div class="grid">
+      <div class="panel tint">
+        <h3>Construction</h3>
+        <ul>
+          <li>Title is specific.</li>
+          <li>Axes are labelled.</li>
+          <li>Scale is even and appropriate.</li>
+          <li>Bars, sectors, or points match the data.</li>
+          <li>Legend is clear when needed.</li>
+        </ul>
+      </div>
+      <div class="panel gold">
+        <h3>Interpretation</h3>
+        <ul>
+          <li>Conclusion uses numbers from the graph.</li>
+          <li>Trend or characteristic is named clearly.</li>
+          <li>Limits of the data are acknowledged.</li>
+          <li>Predictions are justified by the pattern.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-number="29" aria-label="Slide 29">
+    <p class="kicker">Worked Choice</p>
+    <h2>Which Graph for Bullying Locations?</h2>
+    <table>
+      <thead>
+        <tr><th>Location</th><th>Percentage of students</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Classrooms</td><td>9%</td></tr>
+        <tr><td>Hallways</td><td>24%</td></tr>
+        <tr><td>Gym</td><td>5%</td></tr>
+        <tr><td>Locker rooms</td><td>13%</td></tr>
+        <tr><td>Washrooms</td><td>8%</td></tr>
+        <tr><td>Lunch room</td><td>13%</td></tr>
+        <tr><td>Outside school property</td><td>28%</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">A bar graph is effective because it compares categories. A circle graph can show parts of the total, but exact category comparison is usually easier in a bar graph.</div>
+  </section>
+
+  <section class="slide" data-number="30" aria-label="Slide 30">
+    <p class="kicker">Practice</p>
+    <h2>Draw the Bar Graph</h2>
+    <p>Use the bullying-location data from the previous slide.</p>
+    <ol>
+      <li>Put locations on the horizontal axis or use a horizontal bar graph if labels are long.</li>
+      <li>Use percentage of students on the other axis.</li>
+      <li>Choose a scale from 0% to at least 30%.</li>
+      <li>Draw equal-width bars and label the axes.</li>
+      <li>Write one conclusion using a number from the graph.</li>
+    </ol>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide" data-number="31" aria-label="Slide 31">
+    <p class="kicker">Practice</p>
+    <h2>Draw the Circle Graph</h2>
+    <p>A class of 30 students voted for their favourite weekend activity.</p>
+    <table>
+      <thead>
+        <tr><th>Activity</th><th>Frequency</th><th>Fraction</th><th>Sector angle</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Sports</td><td>9</td><td></td><td></td></tr>
+        <tr><td>Games</td><td>6</td><td></td><td></td></tr>
+        <tr><td>Family</td><td>8</td><td></td><td></td></tr>
+        <tr><td>Reading</td><td>3</td><td></td><td></td></tr>
+        <tr><td>Other</td><td>4</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="question">Check: do all sector angles add to 360 degrees?</div>
+  </section>
+
+  <section class="slide" data-number="32" aria-label="Slide 32">
+    <p class="kicker">Practice</p>
+    <h2>Draw the Line Graph</h2>
+    <table>
+      <thead>
+        <tr><th>Year</th><th>Percentage who cycle to school</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2021</td><td>12%</td></tr>
+        <tr><td>2022</td><td>15%</td></tr>
+        <tr><td>2023</td><td>21%</td></tr>
+        <tr><td>2024</td><td>24%</td></tr>
+        <tr><td>2025</td><td>30%</td></tr>
+      </tbody>
+    </table>
+    <div class="question">After drawing: describe the trend and make a justified prediction for 2026.</div>
+  </section>
+
+  <section class="slide" data-number="33" aria-label="Slide 33">
+    <p class="kicker">Practice</p>
+    <h2>Draw the Histogram</h2>
+    <p>Minutes of homework completed last night:</p>
+    <p class="lead">5, 12, 18, 22, 24, 31, 37, 39, 44, 47, 53, 55, 61, 68, 72</p>
+    <ol>
+      <li>Use intervals: 0-15, 16-30, 31-45, 46-60, 61-75.</li>
+      <li>Count the frequency in each interval.</li>
+      <li>Draw touching bars.</li>
+      <li>Write one sentence describing the distribution.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="34" aria-label="Slide 34">
+    <p class="kicker">Interpretation Frame</p>
+    <h2>How to Explain Results</h2>
+    <div class="panel">
+      <p>The data shows that __________.</p>
+      <p>The strongest evidence is __________.</p>
+      <p>This suggests the characteristic/trend __________.</p>
+      <p>However, the graph does not show __________.</p>
+      <p>To investigate further, I would collect __________.</p>
+    </div>
+    <div class="callout">A strong conclusion uses actual values from the graph and avoids claiming causes unless the data supports them.</div>
+  </section>
+
+  <section class="slide" data-number="35" aria-label="Slide 35">
+    <p class="kicker">Mini Project</p>
+    <h2>Community Profile</h2>
+    <p>Choose a question about your class, school, neighbourhood, or community.</p>
+    <ol>
+      <li>Collect data by survey, observation, or a reliable source.</li>
+      <li>Classify each variable as categorical, ordinal, discrete, or continuous.</li>
+      <li>Make a table to organise the data.</li>
+      <li>Create at least two different graphs.</li>
+      <li>Decide which graph represents the data most effectively and justify your choice.</li>
+    </ol>
+  </section>
+
+  <section class="slide" data-number="36" aria-label="Slide 36">
+    <p class="kicker">Project Requirements</p>
+    <h2>What the Final Work Must Include</h2>
+    <ul>
+      <li>A clear data question and source of data.</li>
+      <li>At least one table.</li>
+      <li>A bar graph or multiple bar graph.</li>
+      <li>A circle graph or multiple circle graphs.</li>
+      <li>A line graph or multiple line graph if there is change over time.</li>
+      <li>Titles, labelled axes, clear legends, and appropriate scale.</li>
+      <li>A paragraph explaining characteristics, trends, predictions, and limitations.</li>
+    </ul>
+  </section>
+
+  <section class="slide" data-number="37" aria-label="Slide 37">
+    <p class="kicker">Exit Ticket</p>
+    <h2>Check Your Understanding</h2>
+    <ol>
+      <li>What is the difference between categorical and ordinal data?</li>
+      <li>Why do histogram bars touch, but bar graph bars usually have gaps?</li>
+      <li>When is a line graph more effective than a circle graph?</li>
+      <li>What can make a graph misleading?</li>
+      <li>Which graph would you choose to compare favourite sports by gender? Why?</li>
+    </ol>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="slide center" data-number="38" aria-label="Slide 38">
+    <p class="kicker">Key Takeaway</p>
+    <h2>Choose the Graph That Makes the Relationship Clear</h2>
+    <p class="lead">The same data can often be represented in more than one way, but the best representation depends on the type of data and the conclusion you need to justify.</p>
+  </section>
+</main>
+
+<script>
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const counter = document.getElementById("counter");
+  let current = 0;
+
+  function setCurrent(index) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+    counter.textContent = `Slide ${current + 1} / ${slides.length}`;
+  }
+
+  function go(delta) {
+    setCurrent(current + delta);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight" || event.key === "PageDown") go(1);
+    if (event.key === "ArrowLeft" || event.key === "PageUp") go(-1);
+    if (event.key === "Home") setCurrent(0);
+    if (event.key === "End") setCurrent(slides.length - 1);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!visible) return;
+    current = slides.indexOf(visible.target);
+    counter.textContent = `Slide ${current + 1} / ${slides.length}`;
+  }, { threshold: [0.55] });
+
+  slides.forEach((slide) => observer.observe(slide));
+</script>
+</body>
+</html>
