@@ -51,3 +51,7 @@ Shorthands:
 ### High school
 
 - Piecewise functions (pr)
+
+## TODO list
+
+I have my TODO list published so that you can see if I have noticed some errors in my lessons and they need corrections. Check that TODO list before using any lesson to find possible mistakes in it.
