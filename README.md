@@ -13,6 +13,10 @@ Free to use for any purpose under CC BY 4.0 — see LICENSE for details.
 - Free to use, share, adapt, and even sell.
 - Credit me when you use or share the material.
 
+### TODO list
+
+I have my TODO list published so that you can see if I have noticed some errors in my lessons and they need corrections. Check that TODO list before using any lesson to find possible mistakes in it.
+
 ### AI assistance
 
 Parts of this material were drafted or edited with AI tools.
@@ -20,8 +24,7 @@ All lessons are reviewed and verified by me before publishing.
 If you spot errors, please open an Issue — I appreciate the help
 keeping things accurate.
 
-#### Tools used
-
+**Tools used:**
 - Claude
 - ChatGPT
 
@@ -31,27 +34,47 @@ For commercial use or questions: dzha.ars.va@gmail.com
 
 ## Lessons list
 
+<!--
 Shorthands:
 
 - st - story
 - pr - practice
 
 *There might be no shorthands somewhere if I forgot to write one or if there is nothing special about this lesson and it's just educational material.*
+-->
 
 ### Primary school
 
-- Carry and borrow (st) - [click](primary/carry-borrow/plus-minus-story.html)
-- Borrow - [click](primary/carry-borrow/minus-nostory.html)
+#### British
+
+- [Carry and borrow (st)](primary/carry-borrow/plus-minus-story.html)
+- [Borrow](primary/carry-borrow/minus-nostory.html)
 
 ### Middle school
 
-- Data management - [click](middle/myp-1/data-management.pptx)
-- Data management (complete Unit 6 presentation) - [click](middle/myp-1/data-management-unit6-complete.html)
+#### IB
+
+- [Data management](middle/myp-1/data-management.pptx)
+- [Data management (complete Oxford Unit 6 presentation)](middle/myp-1/data-management-unit6-complete.html)
+
+#### British
+
+- [Trigonometry basics](middle/british/year9-trigonometry.html)
+
+#### Ru
+
+- [Отношения, пропорции, пропорциональности](middle/russian/ratios-proportions-proportionality.html)
 
 ### High school
 
-- Piecewise functions (pr)
+#### SAT
 
-## TODO list
+- Piecewise functions 
+    - [Part 1](high/piecewise-functions/piecewise-functions-part1.pptx)
+    - [Part 2](high/piecewise-functions/piecewise-functions-part2.html)
+    - Part 3 *(coming soon)*
 
-I have my TODO list published so that you can see if I have noticed some errors in my lessons and they need corrections. Check that TODO list before using any lesson to find possible mistakes in it.
+#### A-Level
+
+- S1
+    - [October 21](high/october-2021-s1-past-paper.html)
